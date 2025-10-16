@@ -1,7 +1,5 @@
 using UnityEngine;
 using UnityEngine.TextCore.Text;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using Unity.Cinemachine;
 using UnityEngine.Scripting.APIUpdating;
@@ -12,13 +10,14 @@ public class FPSController : MonoBehaviour
 {
 
     [Header("Movement Parameters")]
-    public float maxSpeed = 3.0f;
+    public float maxSpeed = 5.0f;
+    public float acceleration = 1.5f;
+    public Vector3 currentVelocity { get; private set; }
+    public float currentSpeed { get; private set; }
 
     [Header("Look Around Parameters")]
     public Vector2 lookSensitivity = new Vector2(0.1f, 0.1f);
-
     public float pitchLimit = 85f;
-
     [SerializeField] float currentPitch = 0f;
 
     public float CurrentPitch
@@ -39,12 +38,6 @@ public class FPSController : MonoBehaviour
     [SerializeField] CinemachineCamera FPSCamera;
     [SerializeField] CharacterController characterController;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -52,13 +45,13 @@ public class FPSController : MonoBehaviour
         LookFPSCamera();
     }
 
-    // void onValidate()
-    // {
-    //     if (characterController == null)
-    //     {
-    //         characterController = GetComponent<CharacterController>();
-    //     }
-    // }
+    void OnValidate()
+    {
+        if (characterController == null)
+        {
+            characterController = GetComponent<CharacterController>();
+        }
+    }
 
     // Update Camera Position
     void MoveFPSCamera()
@@ -67,7 +60,25 @@ public class FPSController : MonoBehaviour
         motion.y = 0f;
         motion.Normalize();
 
-        characterController.Move(motion * maxSpeed * Time.deltaTime);
+        // smooth acceleration
+        if (motion.sqrMagnitude >= 0.01f)
+        {
+            currentVelocity = Vector3.MoveTowards(currentVelocity, motion * maxSpeed, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            currentVelocity = Vector3.MoveTowards(currentVelocity, Vector3.zero, acceleration * Time.deltaTime);
+        }
+
+        // account for gravity
+        float verticalVelocity = Physics.gravity.y * 15f * Time.deltaTime;
+        Vector3 fullVelocity = new Vector3(currentVelocity.x, verticalVelocity, currentVelocity.z);
+
+        // move character
+        characterController.Move(fullVelocity * Time.deltaTime);
+
+        //update speed
+        currentSpeed = currentVelocity.magnitude;
     }
 
     // Update Camera orientation (what fps is looking at)
