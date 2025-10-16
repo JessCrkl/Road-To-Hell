@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     }
 
-    // Input Handling
+    #region Input Handling
     void OnMove(InputValue value)
     {
         FPSController.moveInput = value.Get<Vector2>();
@@ -31,7 +31,22 @@ public class Player : MonoBehaviour
         FPSController.lookInput = value.Get<Vector2>();
     }
 
-    // Unity Methods
+    void OnSprint(InputValue value)
+    {
+        FPSController.sprintInput = value.isPressed;
+    }
+
+    void OnJump(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            FPSController.Jump();
+        }
+    }
+
+    #endregion
+
+    #region Unity Methods
     void OnValidate()
     {
         if (FPSController == null)
@@ -39,5 +54,6 @@ public class Player : MonoBehaviour
             FPSController = GetComponent<FPSController>();
         }
     }
+    #endregion
 
 } // eoc
