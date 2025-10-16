@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using Unity.Cinemachine;
 using UnityEngine.Scripting.APIUpdating;
+using System;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
@@ -12,6 +13,23 @@ public class FPSController : MonoBehaviour
 
     [Header("Movement Parameters")]
     public float maxSpeed = 3.0f;
+
+    [Header("Look Around Parameters")]
+    public Vector2 lookSensitivity = new Vector2(0.1f, 0.1f);
+
+    public float pitchLimit = 85f;
+
+    [SerializeField] float currentPitch = 0f;
+
+    public float CurrentPitch
+    {
+        get => currentPitch;
+
+        set
+        {
+            currentPitch = Math.Clamp(value, -pitchLimit, pitchLimit);
+        }
+    }
 
     [Header("FPS Input")]
     public Vector2 moveInput;
@@ -55,7 +73,14 @@ public class FPSController : MonoBehaviour
     // Update Camera orientation (what fps is looking at)
     void LookFPSCamera()
     {
-        
+        Vector2 input = new Vector2(lookInput.x * lookSensitivity.x, lookInput.y * lookSensitivity.y);
+
+        // look up and down
+        currentPitch -= input.y;
+        FPSCamera.transform.localRotation = Quaternion.Euler(currentPitch, 0f, 0f);
+
+        //look left and right
+        transform.Rotate(Vector3.up * input.x);
     }
 
 } // end of class

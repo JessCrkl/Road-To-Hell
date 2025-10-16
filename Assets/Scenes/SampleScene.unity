@@ -448,6 +448,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSController
   maxSpeed: 3
+  lookSensitivity: {x: 0.1, y: 0.1}
+  pitchLimit: 85
+  currentPitch: 0
   moveInput: {x: 0, y: 0}
   lookInput: {x: 0, y: 0}
   FPSCamera: {fileID: 1107182633}
