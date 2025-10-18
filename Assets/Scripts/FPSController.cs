@@ -10,7 +10,7 @@ using UnityEditor.ShaderGraph;
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
 {
-
+    #region Variable Definitions
     [Header("Movement Parameters")]
     [SerializeField] float maxSpeed => sprintInput ? sprintSpeed : walkSpeed;
     [SerializeField] float acceleration = 20f;
@@ -82,6 +82,7 @@ public class FPSController : MonoBehaviour
 
     [Header("Events")]
     public UnityEvent Landed;
+    #endregion
 
     #region Unity Methods
     // Update is called once per frame
