@@ -22,10 +22,10 @@ public class DialogueEventHandler : MonoBehaviour
     }
     
     void Update()
-{
-    if (interactPrompt != null)
-        interactPrompt.SetActive(currentTrigger != null && !dialogueManager.DialogueActive);
-}
+    {
+        if (interactPrompt != null)
+            interactPrompt.SetActive(currentTrigger != null && !dialogueManager.DialogueActive);
+    }
 
     void OnValidate()
     {
@@ -46,11 +46,14 @@ public class DialogueEventHandler : MonoBehaviour
             currentTrigger = null;
     }
 
-    void OnStartDialogue(InputValue value)
+    public void TryStartDialogue()
     {
-        if (value.isPressed && currentTrigger != null && !dialogueManager.DialogueActive)
+        if(currentTrigger != null && !dialogueManager.DialogueActive)
         {
+            Debug.Log($"[DialogueEventHandler] Starting dialogue from trigger: {currentTrigger.name}");
             dialogueManager.StartDialogue(currentTrigger.inkJsonAsset);
+        } else {
+            Debug.Log("[DialogueEventHandler] Cannot start dialogue — no trigger or already active.");
         }
     }
     #endregion

@@ -91,7 +91,7 @@ public class FPSController : MonoBehaviour
     
     void Update()
     {
-        Debug.Log($"dialogueManager: {dialogueManager != null}, DialogueActive: {(dialogueManager != null && dialogueManager.DialogueActive)}, moveInput: {moveInput}");
+        //Debug.Log($"dialogueManager: {dialogueManager != null}, DialogueActive: {(dialogueManager != null && dialogueManager.DialogueActive)}, moveInput: {moveInput}");
         // // don't move if dialogue is active
         if (dialogueManager != null && dialogueManager.DialogueActive)
         {

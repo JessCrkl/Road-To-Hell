@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [Header("Components")]
     [SerializeField] FPSController FPSController;
     [SerializeField] DialogueManager dialogueManager;
+    [SerializeField] DialogueEventHandler dialogueEventHandler;
     [SerializeField] PlayerInput playerInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,7 +21,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Move Input: {FPSController.moveInput}, DialogueActive: {dialogueManager.DialogueActive}");
+        //Debug.Log($"Move Input: {FPSController.moveInput}, DialogueActive: {dialogueManager.DialogueActive}");
         
         if(dialogueManager != null && dialogueManager.DialogueActive) // disable player movement during dialogue
         {
@@ -66,9 +67,17 @@ public class Player : MonoBehaviour
     void OnContinueDialogue(InputValue value)
     {
         if (value.isPressed && dialogueManager != null && dialogueManager.DialogueActive)
-    {
-        dialogueManager.ContinueStory();
+        {
+            dialogueManager.ContinueStory();
+        }
     }
+
+     void OnStartDialogue(InputValue value)
+    {
+        if(value.isPressed && dialogueEventHandler != null)
+        {
+            dialogueEventHandler.TryStartDialogue();
+        }
     }
 
     #endregion
