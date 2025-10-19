@@ -6,10 +6,14 @@ public class Player : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] FPSController FPSController;
+    [SerializeField] DialogueManager dialogueManager;
+    [SerializeField] DialogueEventHandler dialogueEventHandler;
+    [SerializeField] PlayerInput playerInput;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {   
+        playerInput.enabled = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -17,7 +21,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log($"Move Input: {FPSController.moveInput}, DialogueActive: {dialogueManager.DialogueActive}");
+        
+        if(dialogueManager != null && dialogueManager.DialogueActive) // disable player movement during dialogue
+        {
+            if (playerInput.enabled)
+            {
+                playerInput.enabled = false;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
 
+        } else if(dialogueManager != null && !dialogueManager.DialogueActive && !playerInput.enabled) {
+            //re-enable player movement if dialogue finished
+            playerInput.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     #region Input Handling
@@ -44,6 +64,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnContinueDialogue(InputValue value)
+    {
+        if (value.isPressed && dialogueManager != null && dialogueManager.DialogueActive)
+        {
+            dialogueManager.ContinueStory();
+        }
+    }
+
+     void OnStartDialogue(InputValue value)
+    {
+        if(value.isPressed && dialogueEventHandler != null)
+        {
+            dialogueEventHandler.TryStartDialogue();
+        }
+    }
+
     #endregion
 
     #region Unity Methods
@@ -52,6 +88,11 @@ public class Player : MonoBehaviour
         if (FPSController == null)
         {
             FPSController = GetComponent<FPSController>();
+        }
+
+        if (playerInput == null)
+        {
+            playerInput = GetComponent<PlayerInput>();
         }
     }
     #endregion

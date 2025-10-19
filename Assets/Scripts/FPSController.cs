@@ -71,6 +71,9 @@ public class FPSController : MonoBehaviour
     public bool wasGrounded = false;
     public bool isGrounded => characterController.isGrounded;
 
+    [Header("Dialogue Parameters")]
+    [SerializeField] DialogueManager dialogueManager;
+
     [Header("FPS Input")]
     public Vector2 moveInput;
     public Vector2 lookInput;
@@ -85,9 +88,16 @@ public class FPSController : MonoBehaviour
     #endregion
 
     #region Unity Methods
-    // Update is called once per frame
+    
     void Update()
     {
+        //Debug.Log($"dialogueManager: {dialogueManager != null}, DialogueActive: {(dialogueManager != null && dialogueManager.DialogueActive)}, moveInput: {moveInput}");
+        // // don't move if dialogue is active
+        if (dialogueManager != null && dialogueManager.DialogueActive)
+        {
+            return;
+        }
+        
         MoveFPSCamera();
         LookFPSCamera();
         CameraUpdate();
@@ -159,7 +169,8 @@ public class FPSController : MonoBehaviour
         }
 
         Vector3 fullVelocity = new Vector3(currentVelocity.x, verticalVelocity, currentVelocity.z);
-        
+        //Debug.Log(fullVelocity);
+
         // move character
         CollisionFlags flags = characterController.Move(fullVelocity * Time.deltaTime);
 
