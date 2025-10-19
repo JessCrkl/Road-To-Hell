@@ -13,9 +13,9 @@ public class FPSController : MonoBehaviour
     #region Variable Definitions
     [Header("Movement Parameters")]
     [SerializeField] float maxSpeed => sprintInput ? sprintSpeed : walkSpeed;
-    [SerializeField] float acceleration = 20f;
+    [SerializeField] float acceleration = 10f;
     [Tooltip("This is how fast the character can walk.")]
-    [SerializeField] float walkSpeed = 5f;
+    [SerializeField] float walkSpeed = 2f;
     [Tooltip("This is how fast the character can run.")]
     [SerializeField] float sprintSpeed = 15f;
 

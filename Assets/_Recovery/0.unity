@@ -20294,8 +20294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba8254199049f04181e691dcc5271aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSController
-  acceleration: 0.8
-  walkSpeed: 5
+  acceleration: 10
+  walkSpeed: 2
   sprintSpeed: 15
   jumpHeight: 2
   canDoubleJump: 1
@@ -52280,9 +52280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49c14dccbf624314d9357cf3869dce64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  inkJson: {fileID: 0}
-  dialoguePanel: {fileID: 0}
-  dialoguePlaying: 0
 --- !u!43 &2035868141
 Mesh:
   m_ObjectHideFlags: 0
