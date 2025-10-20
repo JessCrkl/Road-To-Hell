@@ -81,6 +81,6 @@
 
 "You'll first have to get through who's guarding the gate..."
 
-"They'll play dead if you've got the bones or bread."
+"They'll play dead if you've got the bones and bread."
 
 -> DONE
