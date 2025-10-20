@@ -12,6 +12,7 @@ public enum EnemyType
 
 public abstract class Enemy : MonoBehaviour
 {
+    [Header("Enemy Settings")]
     public EnemyType enemyType;
     public int maxHealth;
     public int currentHealth;
@@ -41,7 +42,6 @@ public abstract class Enemy : MonoBehaviour
         } else {
             Debug.LogWarning("No PlayerStats instance found :()");
         }
-        
         
         Destroy(gameObject);
     }

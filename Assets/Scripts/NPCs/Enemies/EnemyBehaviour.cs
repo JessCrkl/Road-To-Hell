@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class EnemyBehaviour : Enemy
 {
+    [Header("Patrol Path Settings")]
     public Transform[] patrolPoints;
     private int currentPointIndex = 0;
-    public float moveSpeed = 3f;
+    public float patrolSpeed = 2f;
+    public float attackSpeed = 4f;
     public float detectionRadius = 5f;
+
+    [Header("Player Interaction")]
     private Transform player;
+    private bool playerDetected = false;
 
     protected override void Start()
     {
@@ -16,7 +21,7 @@ public class EnemyBehaviour : Enemy
 
     protected override void UpdateBehavior()
     {
-        if (Vector3.Distance(transform.position, player.position) <= detectionRadius)
+        if (playerDetected && player != null)
         {
             AttackPlayer();
         }
@@ -26,20 +31,44 @@ public class EnemyBehaviour : Enemy
         }
     }
 
-    void Patrol()
+   private void Patrol()
     {
         if (patrolPoints.Length == 0) return;
 
-        Transform target = patrolPoints[currentPointIndex];
-        transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        Transform targetPoint = patrolPoints[currentPointIndex];
+        Vector3 direction = (targetPoint.position - transform.position).normalized;
+        transform.position += direction * patrolSpeed * Time.deltaTime;
+        transform.LookAt(targetPoint);
 
-        if (Vector3.Distance(transform.position, target.position) < 0.2f)
+        float distance = Vector3.Distance(transform.position, targetPoint.position);
+        if (distance < 0.5f)
+        {
             currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+        }
     }
 
-    void AttackPlayer()
+    private void AttackPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-        // TODO: Add attack logic here
+        Vector3 direction = (player.position - transform.position).normalized;
+        transform.position += direction * attackSpeed * Time.deltaTime;
+        transform.LookAt(player);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerDetected = true;
+            Debug.Log($"{name} detected player!");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            playerDetected = false;
+            Debug.Log($"{name} lost sight of player.");
+        }
     }
 }
