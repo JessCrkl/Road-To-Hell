@@ -32,4 +32,6 @@ He takes a closer look at you.
 == RulesOfTheRoad ==    
 "Anyways..."
 
+"You shouldn't be here."
+
 -> DONE
