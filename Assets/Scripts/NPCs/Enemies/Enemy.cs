@@ -33,9 +33,16 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
-        PlayerStats.Instance.AddXP(rewardXP);
-        PlayerStats.Instance.AddLostVerse(rewardLostVerse);
-        PlayerStats.Instance.AddKey(rewardKey);
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.AddXP(rewardXP);
+            PlayerStats.Instance.AddLostVerse(rewardLostVerse);
+            PlayerStats.Instance.AddKey(rewardKey);
+        } else {
+            Debug.LogWarning("No PlayerStats instance found :()");
+        }
+        
+        
         Destroy(gameObject);
     }
 
