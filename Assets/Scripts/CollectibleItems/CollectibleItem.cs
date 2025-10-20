@@ -14,5 +14,13 @@ public abstract class CollectableItem : MonoBehaviour
         }
     }
 
+    protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("Player"))
+        {
+            Collect();
+        }
+    }
+
     protected abstract void Collect();
 }

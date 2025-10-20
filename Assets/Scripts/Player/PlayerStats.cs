@@ -7,11 +7,15 @@ public class PlayerStats : MonoBehaviour
     
     [Header("Player Statistics")]
     public int experience = 0;
-    public int keys = 0;
-    public int lostVerses = 0;
-    //public int instruments = 0;
-    private  List<Key> keysInInventory = new();
-    private  List<LostVerse> lostVersesInInventory = new();
+    public int keyCount = 0;
+    public int lostVersesCount = 0;
+    public int breadCount = 0;
+    public int boneCount = 0;
+    //public int instrumentCount = 0;
+
+    // private  List<Instruments> instrumentsInInventory = new();
+    private readonly List<Key> keysInInventory = new();
+    private readonly List<LostVerse> lostVersesInInventory = new();
 
     private void Awake()
     {
@@ -19,20 +23,51 @@ public class PlayerStats : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    #region Collect Add Methods
     public void AddXP(int amount)
     {
-        Debug.Log("XP: " + experience);
         experience += amount;
+        Debug.Log("XP: " + experience);
     }
-    public void AddKey(Key key)
+    public void AddKey(Key key, int amount)
     {
-        Debug.Log("Keys: " + keys);
+        keyCount += amount;
+        // Debug.Log("Keys: " + keyCount);
         keysInInventory.Add(key);
+        Debug.Log($"Added key: {key.name}");
     }
 
-    public void AddLostVerse(LostVerse lostVerse)
+    public void AddLostVerse(LostVerse lostVerse, int amount)
     {
-        Debug.Log("Lost Verses: " + lostVerses);
+        lostVersesCount += amount;
+        // Debug.Log("Lost Verses: " + lostVersesCount);
         lostVersesInInventory.Add(lostVerse);
+        Debug.Log($"Added Lost Verse: {lostVerse.itemName}");
     }
+    public void AddBread(int amount)
+    {
+        breadCount += amount;
+        Debug.Log("Bread: " + breadCount);
+    }
+
+    public void AddBone(int amount)
+    {
+        boneCount += amount;
+        Debug.Log("Bone: " + boneCount);
+    }
+    #endregion
+
+    #region Helper Methods
+    public bool HasEnoughResources(int requiredBread, int requiredBones)
+    {
+        return breadCount >= requiredBread && boneCount >= requiredBones;
+    }
+
+    public void SpendResources(int bread, int bones)
+    {
+        breadCount -= bread;
+        boneCount -= bones;
+        Debug.Log($"Gave {bread} bread and {bones} bones");
+    }
+    #endregion
 }

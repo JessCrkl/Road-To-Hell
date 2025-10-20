@@ -1081,6 +1081,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Persuade",
+                    "type": "Button",
+                    "id": "9e5fb03a-3bb1-42ec-a3b9-62be5dad4a1d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1114,6 +1123,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchInstrument",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17f93605-fee4-428f-8928-d45bd4ce0987",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Persuade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b26f0910-2f07-4c14-b646-875e2fde3eef",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Persuade",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

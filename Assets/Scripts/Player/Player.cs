@@ -69,20 +69,41 @@ public class Player : MonoBehaviour
 
     void OnInteract(InputValue value)
     {
-        // TBD - pick up lost verses/gas canisters or open doors or smtg
+        // TODO - pick up lost verses/gas canisters 
         if (!value.isPressed) return;
-        
-        // TO DO: Create Interactable interface, see which item player looking at with ray tracer
-        // Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        // if (Physics.Raycast(ray, out RaycastHit hit, 3f)) 
-        // {
-        //     Interactable interactable = hit.collider.GetComponent<Interactable>();
-        //     if (interactable != null)
-        //     {
-        //         interactable.Interact();
-        //     }
-        // }
+
+        Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, 3f))
+        {
+            Cerberus cerberus = hit.collider.GetComponent<Cerberus>();
+            if (cerberus != null)
+            {
+                cerberus.TryToAppease();
+            }
+        }
     }
+
+    void OnPersuade(InputValue value)
+    {
+        if (!value.isPressed) return;
+
+        TryToPersuade();
+    }
+    
+    private void TryToPersuade()
+{
+    Collider[] hits = Physics.OverlapSphere(transform.position, 3f);
+    foreach (var hit in hits)
+    {
+        Cerberus cerberus = hit.GetComponent<Cerberus>();
+        if (cerberus != null)
+        {
+            cerberus.TryToAppease();
+            return; 
+        }
+
+    }
+}
 
     void OnContinueDialogue(InputValue value)
     {

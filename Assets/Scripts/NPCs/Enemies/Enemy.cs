@@ -17,6 +17,9 @@ public abstract class Enemy : MonoBehaviour
     public int maxHealth;
     public int currentHealth;
     public int rewardXP;
+    public int lostVersesRewardCount;
+    public int keyRewardCount;
+
     public LostVerse rewardLostVerse;
     public Key rewardKey;
 
@@ -37,10 +40,10 @@ public abstract class Enemy : MonoBehaviour
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.AddXP(rewardXP);
-            PlayerStats.Instance.AddLostVerse(rewardLostVerse);
-            PlayerStats.Instance.AddKey(rewardKey);
+            PlayerStats.Instance.AddLostVerse(rewardLostVerse, lostVersesRewardCount);
+            PlayerStats.Instance.AddKey(rewardKey, keyRewardCount);
         } else {
-            Debug.LogWarning("No PlayerStats instance found :()");
+            Debug.LogWarning("No PlayerStats instance found :(");
         }
         
         Destroy(gameObject);

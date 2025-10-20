@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class Bone : MonoBehaviour
+public class Bone : CollectableItem
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Collect()
     {
-        
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.AddBone(amount);
+            Debug.Log($"Collected {amount} bone!");
+        }
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
