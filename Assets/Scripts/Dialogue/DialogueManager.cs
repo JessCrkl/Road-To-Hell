@@ -39,13 +39,13 @@ public class DialogueManager : MonoBehaviour
     {
         if (story == null)
         {
-            Debug.LogWarning("No active story to continue.");
+            //Debug.LogWarning("No active story to continue.");
             return;
         }
 
         if (story.currentChoices.Count > 0)
         {
-            Debug.Log("Waiting for player to choose an option...");
+            //Debug.Log("Waiting for player to choose an option...");
             return;
         }
 

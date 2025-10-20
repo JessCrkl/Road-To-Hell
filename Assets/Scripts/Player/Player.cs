@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         // TBD - pick up lost verses/gas canisters or open doors or smtg
         if (!value.isPressed) return;
         
-        // TO DO: Create Interactable interface
+        // TO DO: Create Interactable interface, see which item player looking at with ray tracer
         // Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         // if (Physics.Raycast(ray, out RaycastHit hit, 3f)) 
         // {
