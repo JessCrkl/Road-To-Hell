@@ -2,36 +2,85 @@
 
 == HermesIntroduction ==
 
-//talking to himself or stmg
-"Ah! Forgive me, I was not expecting anyone else here today..."
+"Ah, the poet's returned. Don't you have a song to write?"
 
-"Though I suppose accidents do happen."
++ [Where's Eurydice?]
+    "What do you care? You'll find another muse somewhere."
+    -> continue1
+    
+=== continue1 ===
 
-He checks his notepad. 
++ [Where is she?]
+    "Why do you wanna know?"
+    -> continue2
+    
+=== continue2 ===
 
-As he does, you notice he's slightly hovering off the ground. The only wings visible are the ones at his feet.
++ [Wherever she is, is where I'll go.]
+    "And what if I said she's down below?"
+    -> continue3
+    
+=== continue3 ===
 
-"Well, no matter. My condolences mortal." 
++ [Down below?]
+    "Six feet under the ground below."
+    -> continue4
+    
+=== continue4 ===
 
-"You lived a great life. You will live on through other's memories, yada yada. I will your guide to your final destination-"
+"She called your name before she went."
 
-"Wait."
+"But I guess you weren't listening."
 
-He takes a closer look at you.
++ [No...]
+    "So..."
+    -> continue5
+    
+=== continue5 ===
 
-"You don't look dead..."
+"How far are you willing to go for her?"
 
-+ I definetly am.
-    "Right. It'd be impossible for you to be here otherwise I suppose."
++ [To the end of the earth.]
+    "You got a ticket?"
+    -> continue6
+    
+=== continue6 ===
+
++ [No...?]
+    "Didn't think so."
+    -> continue7
+    
+=== continue7 ===
+
+"Course there is another way..."
+
+"But I'm not supposed to say."
+
++ [Another way?]
+    "Around the back."
+    
+    "But it's not for the sensitive of souls..."
+    -> continue8
+    
+== continue8 == 
+"So do you really want to go?"
+
++ [With all my heart.]
+    "Well, that's a start."
     -> RulesOfTheRoad
     
-+ Does it matter?
-    "Quite. You can't be here if you still belong to the land of the living."
-    -> RulesOfTheRoad
-    
-== RulesOfTheRoad ==    
-"Anyways..."
+== RulesOfTheRoad == 
 
-"You shouldn't be here."
+"To get to the Underworld, you have to take the long way down under the cover of night."
+
+"Stay low. Stay out of sight."
+
+"Keep walking." 
+
+"Don't look back."
+
+"You'll first have to get through who's guarding the gate..."
+
+"They'll play dead if you've got the bones or bread."
 
 -> DONE
