@@ -95,6 +95,7 @@ public class FPSController : MonoBehaviour
         // // don't move if dialogue is active
         if (dialogueManager != null && dialogueManager.DialogueActive)
         {
+            
             return;
         }
         

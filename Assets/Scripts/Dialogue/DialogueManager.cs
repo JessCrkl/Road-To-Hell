@@ -15,27 +15,44 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueActive = false;
         dialoguePanel.SetActive(false);
-        story = new Story(inkJsonAsset.text);
+        if (inkJsonAsset != null)
+        {
+            story = new Story(inkJsonAsset.text);
+        }
+        
     }
     void Update()
     {
-        // if (DialogueActive && Input.GetKeyDown(KeyCode.Space))
-        //     ContinueStory();
+        
     }
 
     public void StartDialogue(TextAsset newInkJson)
     {
+        if (DialogueActive)
+        {
+            Debug.LogWarning("Dialogue already active, ignoring StartDialogue call.");
+            return;
+        }
         story = new Story(newInkJson.text);
         DialogueActive = true;
         dialoguePanel.SetActive(true);
-        ContinueStory();
+
+        if (story.canContinue)
+        {
+            dialogueText.text = story.Continue().Trim();
+        }
     }
 
     public void ContinueStory()
     {
+        if (story == null)
+        {
+            Debug.LogWarning("No active story to continue.");
+            return;
+        }
         if (story.canContinue)
         {
-            dialogueText.text = story.Continue();
+            dialogueText.text = story.Continue().Trim();
         } else {
             EndDialogue();
         }

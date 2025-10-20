@@ -23,18 +23,21 @@ public class Player : MonoBehaviour
     {
         //Debug.Log($"Move Input: {FPSController.moveInput}, DialogueActive: {dialogueManager.DialogueActive}");
         
-        if(dialogueManager != null && dialogueManager.DialogueActive) // disable player movement during dialogue
+        if(dialogueManager != null && dialogueManager.DialogueActive)
         {
-            if (playerInput.enabled)
+            // disable player movement during dialogue
+            if (playerInput.currentActionMap.name != "Dialogue")
             {
-                playerInput.enabled = false;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
+                playerInput.SwitchCurrentActionMap("Dialogue");
             }
-
-        } else if(dialogueManager != null && !dialogueManager.DialogueActive && !playerInput.enabled) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        } else {
             //re-enable player movement if dialogue finished
-            playerInput.enabled = true;
+            if (playerInput.currentActionMap.name != "Player")
+            {
+                playerInput.SwitchCurrentActionMap("Player");
+            }
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -64,17 +67,40 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnInteract(InputValue value)
+    {
+        // TBD - pick up lost verses/gas canisters or open doors or smtg
+        if (!value.isPressed) return;
+        
+        // TO DO: Create Interactable interface
+        // Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        // if (Physics.Raycast(ray, out RaycastHit hit, 3f)) 
+        // {
+        //     Interactable interactable = hit.collider.GetComponent<Interactable>();
+        //     if (interactable != null)
+        //     {
+        //         interactable.Interact();
+        //     }
+        // }
+    }
+
     void OnContinueDialogue(InputValue value)
     {
-        if (value.isPressed && dialogueManager != null && dialogueManager.DialogueActive)
+        if (!value.isPressed) return;
+
+        
+        if (dialogueManager != null && dialogueManager.DialogueActive)
         {
+            Debug.Log("ContinueDialogue pressed");
             dialogueManager.ContinueStory();
         }
     }
 
      void OnStartDialogue(InputValue value)
     {
-        if(value.isPressed && dialogueEventHandler != null)
+        if (!value.isPressed) return;
+
+        if(dialogueEventHandler != null && !dialogueManager.DialogueActive)
         {
             dialogueEventHandler.TryStartDialogue();
         }
