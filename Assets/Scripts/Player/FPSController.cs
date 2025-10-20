@@ -1,11 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Rendering.Universal;
 using Unity.Cinemachine;
-using UnityEngine.Scripting.APIUpdating;
 using System;
-using UnityEditor.ShaderGraph;
 
 [RequireComponent(typeof(CharacterController))]
 public class FPSController : MonoBehaviour
