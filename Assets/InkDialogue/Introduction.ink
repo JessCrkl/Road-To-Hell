@@ -6,7 +6,7 @@ Times are hard. The seasons are changing. Winters and summers are becoming too e
 === Winds ===
 * The winds are getting worse.
 
-The God, Apollo, has gifted you a golden lyre. 
+Apollo, the God of music and poetry, has gifted you a golden lyre. 
 
 --> Apollo
 
@@ -21,9 +21,9 @@ He teaches you to write music. You have a talent for it. You, Orpheus, are the s
 --> Hermes
 
 === Hermes ===
-Hermes, a Messenger God, took you in. He teaches you the importance of your songs.
+Hermes, the God of travelers and messengers, took you in. He teaches you the importance of your songs.
 
-"You can bring the seasons back into tune," he tells you.
+"You can bring the seasons back into tune," he believes.
 
 There's a melody in your head. A lost melody that could fix things.
 
@@ -46,17 +46,9 @@ She's beautiful. You love her dearly.
 
 === Choices ===
 
-"We need food and firewood." She says. You continue working on the lost melody.
+"We need to find food and firewood." She says. You continue working on the lost melody. If you can fix the seasons, this harsh winter can end.
 
 "Did you hear me Orpheus?" 
-
-*You have to finish the song.
--> Death
-
-=== Death ===
-Eurydice dies. 
-
-You do not notice. 
 
 *You have to finish the song.
 --> END

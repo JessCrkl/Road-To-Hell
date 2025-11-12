@@ -3,6 +3,9 @@
 == HermesIntroduction ==
 
 "Ah, the poet's returned. Don't you have a song to write?"
++ [Who are you?]
+"Do you not recognize the one who took you in?" He asks. "I'm Hermes."
+-> continue1
 
 + [Where's Eurydice?]
     "What do you care? You'll find another muse somewhere."
@@ -71,13 +74,11 @@
     
 == RulesOfTheRoad == 
 
-"To get to the Underworld, you have to take the long way down under the cover of night."
+"To get to the Underworld, you'll have to take the long way down under the cover of night."
 
 "Stay low. Stay out of sight."
 
-"Keep walking." 
-
-"Don't look back."
+"Keep walking, and don't look back."
 
 "You'll first have to get through who's guarding the gate..."
 
