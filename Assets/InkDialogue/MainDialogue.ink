@@ -40,7 +40,7 @@
 
 "How far are you willing to go for her?"
 
-+ [To the end of the earth.]
++ [To the ends of the Earth.]
     "You got a ticket?"
     -> continue6
     
