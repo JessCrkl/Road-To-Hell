@@ -1,24 +1,59 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Ink.Runtime;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    public event Action OnDialogueEnded;
+
+    [Header("Ink References")]
     public TextAsset inkJsonAsset;
+
+    [Header("UI Stuff")]
     public GameObject dialoguePanel;
     public TMP_Text dialogueText;
     public Transform choicesContainer;
     public GameObject choicePrefab;
+    public GameObject clickToContinuePrompt;
+    public float continuePromptDelay = 7.0f;
+    
     public bool DialogueActive { get; private set; }
 
     private Story story;
     private readonly List<GameObject> currentChoiceButtons = new();
+    private bool showingContinuePrompt;
+    private Coroutine promptCoroutine;
 
     void Start()
     {
         DialogueActive = false;
         dialoguePanel.SetActive(false);
+        if (clickToContinuePrompt != null)
+        {
+            clickToContinuePrompt.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (!DialogueActive || story == null)
+            return;
+
+        if (story.currentChoices.Count == 0)
+        {
+            bool clickDetected = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
+            bool spaceDetected = Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame;
+            bool enterDetected = Keyboard.current != null && Keyboard.current.enterKey.wasPressedThisFrame;
+
+            if (clickDetected || spaceDetected || enterDetected)
+            {
+                ContinueStory();
+            }
+        }
     }
 
     public void StartDialogue(TextAsset newInkJson)
@@ -37,6 +72,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ContinueStory()
     {
+
         if (story == null)
         {
             //Debug.LogWarning("No active story to continue.");
@@ -49,15 +85,26 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        if (clickToContinuePrompt != null)
+            clickToContinuePrompt.SetActive(false);
+
+        if (promptCoroutine != null)
+            StopCoroutine(promptCoroutine);
+
         if (story.canContinue)
         {
-            ClearChoices(); 
+            Debug.LogWarning("Continuing story...");
+            ClearChoices();
             string nextLine = story.Continue().Trim();
             dialogueText.text = nextLine;
 
             if (story.currentChoices.Count > 0)
             {
                 DisplayChoices();
+            }
+            else
+            {
+                promptCoroutine = StartCoroutine(ShowContinuePromptAfterDelay());
             }
         }
         else if (story.currentChoices.Count > 0)
@@ -67,6 +114,16 @@ public class DialogueManager : MonoBehaviour
         else
         {
             EndDialogue();
+        }
+    }
+    
+    IEnumerator ShowContinuePromptAfterDelay()
+    {
+        yield return new WaitForSeconds(continuePromptDelay);
+
+        if (clickToContinuePrompt != null && DialogueActive && story.currentChoices.Count == 0)
+        {
+            clickToContinuePrompt.SetActive(true);
         }
     }
 
@@ -94,25 +151,26 @@ public class DialogueManager : MonoBehaviour
     {
         story.ChooseChoiceIndex(choiceIndex);
         ClearChoices();
+        ContinueStory();
 
-        if (story.canContinue)
-        {
-            string nextLine = story.Continue().Trim();
-            dialogueText.text = nextLine;
+        // if (story.canContinue)
+        // {
+        //     string nextLine = story.Continue().Trim();
+        //     dialogueText.text = nextLine;
 
-            if (story.currentChoices.Count > 0)
-            {
-                DisplayChoices();
-            }
-        }
-        else if (story.currentChoices.Count > 0)
-        {
-            DisplayChoices();
-        }
-        else
-        {
-            EndDialogue();
-        }
+        //     if (story.currentChoices.Count > 0)
+        //     {
+        //         DisplayChoices();
+        //     }
+        // }
+        // else if (story.currentChoices.Count > 0)
+        // {
+        //     DisplayChoices();
+        // }
+        // else
+        // {
+        //     EndDialogue();
+        // }
     }
 
     void ClearChoices()
@@ -131,5 +189,10 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         ClearChoices();
         dialogueText.text = "";
+
+        if (clickToContinuePrompt != null)
+            clickToContinuePrompt.SetActive(false);
+
+        OnDialogueEnded?.Invoke();
     }
 }
