@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class DialogueAutoStart : MonoBehaviour
 {
@@ -22,15 +23,33 @@ public class DialogueAutoStart : MonoBehaviour
 
         dialogueManager.OnDialogueEnded += HandleDialogueEnd;
 
-        // start dialogue automatically when scene loaded
+        StartCoroutine(StartSceneFade());
+    }
+
+    private IEnumerator StartSceneFade()
+    {
+        if (FadeController.Instance != null)
+            yield return FadeController.Instance.FadeIn();
+
         dialogueManager.StartDialogue(inkJsonAsset);
     }
 
-         private void HandleDialogueEnd()
+    private void HandleDialogueEnd()
+    {
+        Debug.Log("[DialogueAutoStart] Dialogue finished — loading next scene...");
+        StartCoroutine(LoadNextSceneFade());
+    }
+        
+    private IEnumerator LoadNextSceneFade()
+    {
+        if (FadeController.Instance != null)
         {
-            Debug.Log("[DialogueAutoStart] Dialogue finished — loading next scene...");
-            SceneManager.LoadScene(nextSceneName);
+            yield return FadeController.Instance.FadeOut();
+            yield return new WaitForSeconds(0.1f);
         }
+
+        SceneManager.LoadScene(nextSceneName);
+    }
 
         private void OnDestroy()
         {

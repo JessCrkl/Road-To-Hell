@@ -4,20 +4,20 @@ Times are hard. The seasons are changing. Winters and summers are becoming too e
 --> Winds
 
 === Winds ===
-* The winds are getting worse.
+* [The winds are getting worse.]
 
 Apollo, the God of music and poetry, has gifted you a golden lyre. 
 
 --> Apollo
 
 === Apollo ===
-* You play beatifully.
+* [You play beatifully.]
 
 He teaches you to write music. You have a talent for it. You, Orpheus, are the son of a Muse.
 --> Abandon
 
 == Abandon ===
-* She abandoned you.
+* [She abandoned you.]
 --> Hermes
 
 === Hermes ===
@@ -30,7 +30,7 @@ There's a melody in your head. A lost melody that could fix things.
 --> Eurydice
 
 === Eurydice ===
-* You see Eurydice.
+* [You see Eurydice.]
 
 She's tightly holding onto a small pack. It holds the only belongings you both own. 
 
@@ -40,7 +40,7 @@ She's beautiful. You love her dearly.
 --> Love
 
 === Love ===
-* She loves you back.
+* [She loves you back.]
 
 --> Choices
 
@@ -50,5 +50,10 @@ She's beautiful. You love her dearly.
 
 "Did you hear me Orpheus?" 
 
-*You have to finish the song.
---> END
+* [You have to finish the song.]
+
+--> Ending
+
+=== Ending ===
+"Finish it quick." She turns away.
+-> END
