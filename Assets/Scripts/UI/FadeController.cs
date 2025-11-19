@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class FadeController : MonoBehaviour
@@ -23,11 +24,20 @@ public class FadeController : MonoBehaviour
 
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
+
+        canvasGroup.alpha = 1f;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(FadeIn());
     }
 
     public IEnumerator FadeOut()
     {
         yield return Fade(0f, 1f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     public IEnumerator FadeIn()

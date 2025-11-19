@@ -356,7 +356,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_TargetDisplay: 0
 --- !u!224 &67041011
 RectTransform:
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeController
   canvasGroup: {fileID: 804612327}
-  fadeDuration: 1
+  fadeDuration: 0.5
 --- !u!1 &137566118
 GameObject:
   m_ObjectHideFlags: 0
