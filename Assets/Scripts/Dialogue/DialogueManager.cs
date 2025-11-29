@@ -28,6 +28,7 @@ public class DialogueManager : MonoBehaviour
     private bool showingContinuePrompt;
     private Coroutine promptCoroutine;
 
+    #region Unity Methods
     void Start()
     {
         DialogueActive = false;
@@ -55,6 +56,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
     public void StartDialogue(TextAsset newInkJson)
     {
@@ -153,6 +155,7 @@ public class DialogueManager : MonoBehaviour
         ClearChoices();
         ContinueStory();
 
+        // debug
         // if (story.canContinue)
         // {
         //     string nextLine = story.Continue().Trim();
