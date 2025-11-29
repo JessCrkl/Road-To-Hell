@@ -7,6 +7,7 @@ public class Bread : CollectableItem
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.AddBread(amount);
+            //PlayerStats.Instance.AddHealth(amount);
             Debug.Log($"Collected {amount} bread!");
         }
         Destroy(gameObject);

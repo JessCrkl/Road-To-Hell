@@ -1,16 +1,29 @@
 using UnityEngine;
+using System;
 
 public class GameEventsManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GameEventsManager Instance { get; private set; }
+    public event Action<string> OnItemCollected;
+
+    #region Unity Methods
+    void Awake()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+    public void ItemCollected(string itemName)
     {
-        
+        OnItemCollected?.Invoke(itemName);
     }
+
 }

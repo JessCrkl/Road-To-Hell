@@ -10,7 +10,7 @@ public abstract class CollectableItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Collect();
+            NotifyCollection();
         }
     }
 
@@ -18,9 +18,17 @@ public abstract class CollectableItem : MonoBehaviour
     {
         if (hit.collider.CompareTag("Player"))
         {
-            Collect();
+            NotifyCollection();
         }
     }
+
+    private void NotifyCollection()
+    {
+        GameEventsManager.Instance.ItemCollected(itemName);
+        Collect();
+        Destroy(gameObject);
+    }
+    
 
     protected abstract void Collect();
 }
