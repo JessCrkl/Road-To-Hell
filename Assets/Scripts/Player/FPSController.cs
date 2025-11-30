@@ -9,9 +9,10 @@ public class FPSController : MonoBehaviour
     #region Variable Definitions
     [Header("Movement Parameters")]
     [SerializeField] float maxSpeed => sprintInput ? sprintSpeed : walkSpeed;
-    [SerializeField] float acceleration = 10f;
+    [SerializeField] float acceleration = 80f;
+    [SerializeField] float deceleration = 100f;
     [Tooltip("This is how fast the character can walk.")]
-    [SerializeField] float walkSpeed = 2f;
+    [SerializeField] float walkSpeed = 4.5f;
     [Tooltip("This is how fast the character can run.")]
     [SerializeField] float sprintSpeed = 15f;
 
@@ -47,7 +48,7 @@ public class FPSController : MonoBehaviour
     [Header("Camera Parameters")]
     [SerializeField] float cameraNormalFOV = 60f;
     [SerializeField] float cameraSprintFOV = 80f;
-    [SerializeField] float cameraFOVSmoothing = 1f;
+    [SerializeField] float cameraFOVSmoothing = 0.5f;
 
     float targetCameraFOV
     {
@@ -141,24 +142,28 @@ public class FPSController : MonoBehaviour
     // Update Camera Position
     void MoveFPSCamera()
     {
+        //Debug.Log(1f / Time.deltaTime);
         Vector3 motion = transform.forward * moveInput.y + transform.right * moveInput.x;
         motion.y = 0f;
         motion.Normalize();
 
+        float accel = acceleration * Time.deltaTime;
+        float decel = deceleration * Time.deltaTime;
+
         // smooth acceleration
         if (motion.sqrMagnitude >= 0.01f)
         {
-            currentVelocity = Vector3.MoveTowards(currentVelocity, motion * maxSpeed, acceleration * Time.deltaTime);
+            currentVelocity = Vector3.MoveTowards(currentVelocity, motion * maxSpeed, accel);
         }
         else
         {
-            currentVelocity = Vector3.MoveTowards(currentVelocity, Vector3.zero, acceleration * Time.deltaTime);
+            currentVelocity = Vector3.MoveTowards(currentVelocity, Vector3.zero, decel);
         }
         
         // account for gravity
         if (isGrounded && verticalVelocity <= 0.01f)
         {
-            verticalVelocity = -3f;
+            currentVelocity *= 0.95f;
         } else
         {
             verticalVelocity += Physics.gravity.y * gravityScale * Time.deltaTime;
