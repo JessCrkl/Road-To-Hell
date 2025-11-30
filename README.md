@@ -10,3 +10,7 @@ A vertical game slice of Road To Hell, an immersive FPS Narrative RPG game based
 Ink Narrative Scripting Language: https://www.inklestudios.com/ink/
 
 Understanding First Person Movement in Unity with new Input Actions System: https://www.youtube.com/watch?v=41MD0s9FiXI 
+
+---------- Asset Credits ----------------
+
+Sound: "Ambiance_Atmosphere_Cave_Loop_Stereo.ogg" by Nox_Sound, uploaded Jan. 3, 2021, https://freesound.org/people/Nox_Sound/sounds/553080/
