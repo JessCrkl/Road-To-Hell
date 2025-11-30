@@ -55,5 +55,5 @@ She's beautiful. You love her dearly.
 --> Ending
 
 === Ending ===
-"Finish it quick." She turns away.
+You want to get her back.
 -> END
