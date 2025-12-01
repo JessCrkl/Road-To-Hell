@@ -1149,6 +1149,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "SongLearning",
+            "id": "ee2a6d78-cc22-42a7-8cb7-f23771bf39fd",
+            "actions": [
+                {
+                    "name": "CloseUI",
+                    "type": "Button",
+                    "id": "3f2224fd-cf58-49af-8099-b082d93f7f55",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "26abd930-bfd5-4efe-a9a4-2e9199f2c783",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "CloseUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
