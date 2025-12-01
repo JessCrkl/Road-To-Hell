@@ -71,6 +71,9 @@ public class FPSController : MonoBehaviour
     [Header("Dialogue Parameters")]
     [SerializeField] DialogueManager dialogueManager;
 
+    [Header("State Flags")]
+    public bool SongLearningActive = false;
+
     [Header("FPS Input")]
     public Vector2 moveInput;
     public Vector2 lookInput;
@@ -91,6 +94,11 @@ public class FPSController : MonoBehaviour
         //Debug.Log($"dialogueManager: {dialogueManager != null}, DialogueActive: {(dialogueManager != null && dialogueManager.DialogueActive)}, moveInput: {moveInput}");
         // // don't move if dialogue is active
         if (dialogueManager != null && dialogueManager.DialogueActive)
+        {
+            return;
+        }
+
+        if (SongLearningActive)
         {
             return;
         }
