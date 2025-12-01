@@ -13,4 +13,8 @@ Understanding First Person Movement in Unity with new Input Actions System: http
 
 ---------- Asset Credits ----------------
 
-Sound: "Ambiance_Atmosphere_Cave_Loop_Stereo.ogg" by Nox_Sound, uploaded Jan. 3, 2021, https://freesound.org/people/Nox_Sound/sounds/553080/
+Sound: 
+
+"Ambiance_Atmosphere_Cave_Loop_Stereo.ogg" by Nox_Sound, uploaded Jan. 3, 2021, https://freesound.org/people/Nox_Sound/sounds/553080/
+
+"Gentle, Subtle guitar background noise for Game/film/TV etc" by Destructo20 uploaded on Dec. 27, 2024, https://freesound.org/people/Destructo20/sounds/780545/
