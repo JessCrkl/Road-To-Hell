@@ -1,13 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class SongLearningUIManager : MonoBehaviour
 {
     public static SongLearningUIManager Instance;
 
-    [Header("References")]
-    public GameObject songLearningPanel;
-    // public PlayerInput playerInput;       
-    public FPSController fpsController;   
+    [Header("UI References")]
+    public GameObject songLearningPanel;        // Whole UI panel
+    public Transform fragmentPanel;             // Where draggable fragments appear
+    public Transform staffSlotPanel;            // Slots on the staff where pieces go
+    public StaffSlot staffSlotPrefab;           // Prefab for each slot on staff
+    public FragmentDraggable fragmentPrefab;    // Prefab for draggable fragments
+
+    [Header("Gameplay")]
+    public int currentSongIndex;
+    public GameObject playerController;        // Your FPS Controller GameObject
+
+    private List<StaffSlot> activeSlots = new();
 
     private void Awake()
     {
@@ -16,51 +26,74 @@ public class SongLearningUIManager : MonoBehaviour
 
     public void OpenSongLearningUI(int songIndex)
     {
-        fpsController.SongLearningActive = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        currentSongIndex = songIndex;
 
-        // Switch Action Map so movement stops
-        // playerInput.SwitchCurrentActionMap("SongLearning");
+        // Disable player movement
+        if (playerController != null)
+            playerController.SetActive(false);
 
-        // Hard kill any leftover movement
-        fpsController.moveInput = Vector2.zero;
-        fpsController.lookInput = Vector2.zero;
-        fpsController.sprintInput = false;
-
+        // Show UI
         songLearningPanel.SetActive(true);
 
-        // BuildPuzzle(songIndex);
+        BuildPuzzle();
     }
 
     public void CloseSongLearningUI()
     {
+        // Hide UI
         songLearningPanel.SetActive(false);
 
-        // Go back to normal movement
-        // playerInput.SwitchCurrentActionMap("Player");
+        // Re-enable player movement
+        if (playerController != null)
+            playerController.SetActive(true);
 
-        fpsController.SongLearningActive = false;
+        // Cleanup old puzzle
+        foreach (var slot in activeSlots)
+            Destroy(slot.gameObject);
+        activeSlots.Clear();
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        foreach (Transform child in fragmentPanel)
+            Destroy(child.gameObject);
     }
 
+    private void BuildPuzzle()
+    {
+        List<SongFragment> collected =
+            SongFragmentManager.Instance.GetFragmentsForSong(currentSongIndex);
+
+        // 1. Create staff slots (sorted by fragmentIndex)
+        collected.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
+
+        for (int i = 0; i < collected.Count; i++)
+        {
+            StaffSlot slot = Instantiate(staffSlotPrefab, staffSlotPanel);
+            slot.slotIndex = collected[i].correctIndex;
+            activeSlots.Add(slot);
+        }
+
+        // 2. Create draggable fragments (unsorted = puzzle)
+        foreach (SongFragment frag in collected)
+        {
+            FragmentDraggable drag = Instantiate(fragmentPrefab, fragmentPanel);
+            drag.fragment = frag;
+            drag.BindData();
+        }
+    }
+
+    // Called by StaffSlot every time it places a fragment
     public void CheckCompletion()
-{
-    // foreach (var slot in activeSlots)
-    // {
-    //     if (slot.placedFragment == null)
-    //         return;
+    {
+        foreach (StaffSlot slot in activeSlots)
+        {
+            if (slot.placedFragment == null)
+                return;
+        }
 
-    //     if (slot.placedFragment.fragmentIndex != slot.slotIndex)
-    //         return; // A wrong piece is placed
-    // }
+        // all placed — solve
+        Debug.Log("SONG COMPLETED!");
 
-    Debug.Log("SONG COMPLETED!");
-    // SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
+        SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
 
-    CloseSongLearningUI();
-}
-
+        CloseSongLearningUI();
+    }
 }

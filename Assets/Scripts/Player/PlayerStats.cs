@@ -16,6 +16,7 @@ public class PlayerStats : MonoBehaviour
     // private  List<Instruments> instrumentsInInventory = new();
     private readonly List<Key> keysInInventory = new();
     private readonly List<LostVerse> lostVersesInInventory = new();
+    public HashSet<string> UnlockedSongs = new();
 
     private void Awake()
     {
@@ -68,6 +69,11 @@ public class PlayerStats : MonoBehaviour
         breadCount -= bread;
         boneCount -= bones;
         Debug.Log($"Gave {bread} bread and {bones} bones");
+    }
+
+    public bool HasLearnedSong(string songName)
+    {
+        return UnlockedSongs.Contains(songName);
     }
     #endregion
 }

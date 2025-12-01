@@ -2025,7 +2025,7 @@ PrefabInstance:
     - target: {fileID: 750636398796001359, guid: ba8775a6a4362dc48b603af9b6b944f1, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1389635184}
+      objectReference: {fileID: 0}
     - target: {fileID: 750636398796001359, guid: ba8775a6a4362dc48b603af9b6b944f1, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2216,17 +2216,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1724162805674576509, guid: ba8775a6a4362dc48b603af9b6b944f1, type: 3}
   m_PrefabInstance: {fileID: 350024051}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &350024053 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 750636398796001359, guid: ba8775a6a4362dc48b603af9b6b944f1, type: 3}
-  m_PrefabInstance: {fileID: 350024051}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1001 &361559969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3344,6 +3333,7 @@ MonoBehaviour:
   verticalVelocity: 0
   wasGrounded: 0
   dialogueManager: {fileID: 2007110220}
+  SongLearningActive: 0
   moveInput: {x: 0, y: 0}
   lookInput: {x: 0, y: 0}
   sprintInput: 0
@@ -7508,7 +7498,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1389635183}
   - component: {fileID: 1389635185}
-  - component: {fileID: 1389635184}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -7531,19 +7520,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1691928126}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1389635184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389635182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1aa89832fbf3246b21d7a2e49ec420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  volumeSlider: {fileID: 350024053}
 --- !u!82 &1389635185
 AudioSource:
   m_ObjectHideFlags: 0

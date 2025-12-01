@@ -4,6 +4,7 @@ using UnityEngine;
 public class SongFragmentManager : MonoBehaviour
 {
     public static SongFragmentManager Instance;
+    private HashSet<int> learnedSongs = new();
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class SongFragmentManager : MonoBehaviour
     {
         foreach (var f in collectedFragments)
         {
-            if (f.songIndex == songIndex && f.fragmentIndex == fragmentIndex)
+            if (f.songIndex == songIndex && f.correctIndex == fragmentIndex)
                 return true;
         }
         return false;
@@ -36,5 +37,15 @@ public class SongFragmentManager : MonoBehaviour
                 list.Add(f);
         }
         return list;
+    }
+
+    public void MarkSongLearned(int songIndex)
+    {
+        learnedSongs.Add(songIndex);
+    }
+
+    public bool IsSongLearned(int songIndex)
+    {
+        return learnedSongs.Contains(songIndex);
     }
 }
