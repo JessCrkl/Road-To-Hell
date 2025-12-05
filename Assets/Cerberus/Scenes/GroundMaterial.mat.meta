@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 916877b8ae9b3a24ebd8fa3f09fec07a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 141199
+  packageName: 'Cerberus: Animated 3D Character'
+  packageVersion: 1.0
+  assetPath: Assets/Cerberus/Scenes/GroundMaterial.mat
+  uploadId: 475273

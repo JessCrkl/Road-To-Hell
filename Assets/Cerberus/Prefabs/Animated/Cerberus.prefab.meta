@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 611f7c53e8e45bf4481e5a9d45e4edd1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 141199
+  packageName: 'Cerberus: Animated 3D Character'
+  packageVersion: 1.0
+  assetPath: Assets/Cerberus/Prefabs/Animated/Cerberus.prefab
+  uploadId: 475273

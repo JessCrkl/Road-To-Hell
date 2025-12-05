@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0285129ab68432e4db13bd16c47077e2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 141199
+  packageName: 'Cerberus: Animated 3D Character'
+  packageVersion: 1.0
+  assetPath: Assets/Cerberus/Materials/Cerberus_mat.mat
+  uploadId: 475273

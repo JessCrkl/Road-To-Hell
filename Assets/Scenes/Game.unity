@@ -3014,6 +3014,179 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &379048540
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1729490571}
+    m_Modifications:
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 215.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 52.93999
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      propertyPath: m_Name
+      value: Cerberus
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379048546}
+    - targetCorrespondingSourceObject: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379048545}
+    - targetCorrespondingSourceObject: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379048544}
+    - targetCorrespondingSourceObject: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 379048543}
+  m_SourcePrefab: {fileID: 100100000, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+--- !u!4 &379048541 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 561935880769719639, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+  m_PrefabInstance: {fileID: 379048540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &379048542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 902889366427473901, guid: 4ac5292eee665604d9b439608253dfc8, type: 3}
+  m_PrefabInstance: {fileID: 379048540}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &379048543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379048542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f062bbd6725e843a670eb299a39a49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Cerberus
+  enemyType: 0
+  maxHealth: 150
+  currentHealth: 150
+  rewardXP: 250
+  lostVersesRewardCount: 1
+  keyRewardCount: 1
+  rewardLostVerse: {fileID: 0}
+  rewardKey: {fileID: 2125004053}
+  requiredBread: 3
+  requiredBones: 2
+--- !u!114 &379048544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379048542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2b0173d6fd3464abdc926adc7745ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
+  enemyType: 0
+  maxHealth: 0
+  currentHealth: 0
+  rewardXP: 0
+  lostVersesRewardCount: 0
+  keyRewardCount: 0
+  rewardLostVerse: {fileID: 0}
+  rewardKey: {fileID: 0}
+  patrolPoints: []
+  patrolSpeed: 2
+  attackSpeed: 4
+  detectionRadius: 5
+--- !u!54 &379048545
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379048542}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &379048546
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379048542}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1001 &383702679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9370,7 +9543,7 @@ GameObject:
   - component: {fileID: 1143750265}
   - component: {fileID: 1143750266}
   m_Layer: 0
-  m_Name: Cerberus
+  m_Name: Cerberus Placeholder
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13582,6 +13755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 379048541}
   - {fileID: 1143750258}
   m_Father: {fileID: 2123080253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

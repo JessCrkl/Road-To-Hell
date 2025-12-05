@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64f2b94dcea1be24c93cd47a9f246c0f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 141199
+  packageName: 'Cerberus: Animated 3D Character'
+  packageVersion: 1.0
+  assetPath: Assets/Cerberus/AnimatorControllers/Cerberus_animatorcontroller.controller
+  uploadId: 475273
