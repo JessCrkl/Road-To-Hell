@@ -7,7 +7,7 @@ public class StaffSlot : MonoBehaviour
     public Image slotImage; 
     public SongFragment placedFragment;
 
-    public bool CanPlace(SongFragment fragment)
+    public bool CorrectPlacement(SongFragment fragment)
     {
         return fragment.correctIndex == slotIndex;
     }

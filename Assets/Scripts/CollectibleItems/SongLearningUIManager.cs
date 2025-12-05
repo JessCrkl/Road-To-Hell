@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class SongLearningUIManager : MonoBehaviour
 {
@@ -15,7 +16,9 @@ public class SongLearningUIManager : MonoBehaviour
 
     [Header("Gameplay")]
     public int currentSongIndex;
-    public GameObject playerController;        // Your FPS Controller GameObject
+    public GameObject playerController;        // FPS Controller GameObject
+    public SongData song;
+    public AudioSource audioSource;
 
     private List<StaffSlot> activeSlots = new();
 
@@ -80,6 +83,25 @@ public class SongLearningUIManager : MonoBehaviour
         }
     }
 
+    void UnlockSong()
+    {
+        // Play full melody
+        StartCoroutine(PlayMelody());
+
+        // Mark in save file that song is learned
+        PlayerStats.Instance.UnlockedSongs.Add(song.songName);
+        Debug.Log("Learned Song: " + song.songName);
+    }
+
+    IEnumerator PlayMelody()
+    {
+        foreach (var note in song.fullMelody)
+        {
+            audioSource.PlayOneShot(note);
+            yield return new WaitForSeconds(note.length * 0.9f);
+        }
+    }
+
     // Called by StaffSlot every time it places a fragment
     public void CheckCompletion()
     {
@@ -88,8 +110,10 @@ public class SongLearningUIManager : MonoBehaviour
             if (slot.placedFragment == null)
                 return;
         }
-
-        // all placed — solve
+        
+        // check if in correct order
+        
+        UnlockSong();
         Debug.Log("SONG COMPLETED!");
 
         SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);

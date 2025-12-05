@@ -34,11 +34,11 @@ public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
         if (eventData.pointerEnter != null)
         {
-            StaffSlot slot = eventData.pointerEnter.GetComponent<StaffSlot>();
+            StaffSlot slot = eventData.pointerEnter.GetComponentInParent<StaffSlot>();
 
             if (slot != null)
             {
-                if (slot.CanPlace(fragment))
+                if (slot.CorrectPlacement(fragment))
                 {
                     // correct
                     slot.PlaceFragment(fragment);
@@ -52,7 +52,7 @@ public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler,
             }
         }
 
-        // Reset position if not placed
+        // reset position if not placed
         transform.SetParent(originalParent);
     }
 

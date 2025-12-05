@@ -44,6 +44,11 @@ public class PlayerStats : MonoBehaviour
         // Debug.Log("Lost Verses: " + lostVersesCount);
         lostVersesInInventory.Add(lostVerse);
         Debug.Log($"Added Lost Verse: {lostVerse.itemName}");
+
+        if(lostVersesCount == 4)
+        {
+            // show songbook prompt
+        }
     }
     public void AddBread(int amount)
     {
