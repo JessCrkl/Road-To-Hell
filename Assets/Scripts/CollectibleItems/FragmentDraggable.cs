@@ -14,6 +14,7 @@ public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler,
     {
         group = GetComponent<CanvasGroup>();
         rect = GetComponent<RectTransform>();
+        icon = GetComponent<Image>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

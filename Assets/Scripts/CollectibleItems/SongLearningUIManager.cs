@@ -13,6 +13,10 @@ public class SongLearningUIManager : MonoBehaviour
     public Transform staffSlotPanel;            // Slots on the staff where pieces go
     public StaffSlot staffSlotPrefab;           // Prefab for each slot on staff
     public FragmentDraggable fragmentPrefab;    // Prefab for draggable fragments
+    public GameObject helpPanel;
+    public Button helpButton;
+    public Button backButton;
+   
 
     [Header("Gameplay")]
     public int currentSongIndex;
@@ -27,6 +31,18 @@ public class SongLearningUIManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (helpButton != null)
+        {
+            helpButton.onClick.AddListener(OpenHelpPanel);
+        }
+        if (backButton != null)
+        {
+            backButton.onClick.AddListener(CloseHelpPanel);
+        }
+    }
+
     public void OpenSongLearningUI(int songIndex)
     {
         currentSongIndex = songIndex;
@@ -37,14 +53,26 @@ public class SongLearningUIManager : MonoBehaviour
 
         // Show UI
         songLearningPanel.SetActive(true);
+        helpPanel.SetActive(false);
 
         BuildPuzzle();
+    }
+
+    public void OpenHelpPanel()
+    {
+        helpPanel.SetActive(true);
+    }
+
+    private void CloseHelpPanel()
+    {
+        helpPanel.SetActive(false);
     }
 
     public void CloseSongLearningUI()
     {
         // Hide UI
         songLearningPanel.SetActive(false);
+        helpPanel.SetActive(false);
 
         // Re-enable player movement
         if (playerController != null)
@@ -60,28 +88,32 @@ public class SongLearningUIManager : MonoBehaviour
     }
 
     private void BuildPuzzle()
+{
+    // Get the collected fragments for the current song
+    List<SongFragment> collected = SongFragmentManager.Instance.GetFragmentsForSong(currentSongIndex);
+
+    // 1. Create staff slots (sorted by correctIndex)
+    collected.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
+
+    // Create the puzzle slots (staff positions) based on the fragments collected
+    for (int i = 0; i < collected.Count; i++)
     {
-        List<SongFragment> collected =
-            SongFragmentManager.Instance.GetFragmentsForSong(currentSongIndex);
-
-        // 1. Create staff slots (sorted by fragmentIndex)
-        collected.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
-
-        for (int i = 0; i < collected.Count; i++)
-        {
-            StaffSlot slot = Instantiate(staffSlotPrefab, staffSlotPanel);
-            slot.slotIndex = collected[i].correctIndex;
-            activeSlots.Add(slot);
-        }
-
-        // 2. Create draggable fragments (unsorted = puzzle)
-        foreach (SongFragment frag in collected)
-        {
-            FragmentDraggable drag = Instantiate(fragmentPrefab, fragmentPanel);
-            drag.fragment = frag;
-            drag.BindData();
-        }
+        StaffSlot slot = Instantiate(staffSlotPrefab, staffSlotPanel);
+        slot.slotIndex = collected[i].correctIndex;
+        activeSlots.Add(slot);
     }
+
+    // 2. Create draggable fragments at the bottom
+    // This part will display the same fragment multiple times, as needed
+    foreach (SongFragment frag in collected)
+    {
+        // Create an instance of each fragment to be displayed at the bottom of the screen
+        FragmentDraggable drag = Instantiate(fragmentPrefab, fragmentPanel);
+        drag.fragment = frag;  // Reference the correct SongFragment data
+        drag.BindData();       // This will assign the correct sprite to the fragment
+    }
+}
+
 
     void UnlockSong()
     {
@@ -112,12 +144,23 @@ public class SongLearningUIManager : MonoBehaviour
         }
         
         // check if in correct order
+        bool isCorrect = true;
+        for (int i = 0; i < activeSlots.Count; i++)
+        {
+            if (activeSlots[i].placedFragment.correctIndex != i)
+            {
+                // not in correct order, return
+                isCorrect = false;
+                return;
+            }
+        }
         
-        UnlockSong();
-        Debug.Log("SONG COMPLETED!");
-
-        SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
-
-        CloseSongLearningUI();
+        if (isCorrect) {
+            Debug.Log("SONG COMPLETED!");
+            
+            UnlockSong();
+            SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
+            CloseSongLearningUI();
+        }
     }
 }
