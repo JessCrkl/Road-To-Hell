@@ -23,6 +23,9 @@ public class SongLearningUIManager : MonoBehaviour
     public GameObject playerController;        // FPS Controller GameObject
     public SongData song;
     public AudioSource audioSource;
+    public InputActionAsset inputActions;
+    private InputAction dragFragmentAction;
+    private InputAction dropFragmentAction;
 
     private List<StaffSlot> activeSlots = new();
 
@@ -41,6 +44,24 @@ public class SongLearningUIManager : MonoBehaviour
         {
             backButton.onClick.AddListener(CloseHelpPanel);
         }
+    }
+
+    private void OnEnable()
+    {
+        // Enable the action map
+        var songLearningMap = inputActions.FindActionMap("SongLearning");
+
+        dragFragmentAction = songLearningMap.FindAction("DragFragment");
+        dropFragmentAction = songLearningMap.FindAction("DropFragment");
+
+        dragFragmentAction.Enable();
+        dropFragmentAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        dragFragmentAction.Disable();
+        dropFragmentAction.Disable();
     }
 
     public void OpenSongLearningUI(int songIndex)

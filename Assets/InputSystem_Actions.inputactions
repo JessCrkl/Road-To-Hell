@@ -1162,6 +1162,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DragFragment",
+                    "type": "Value",
+                    "id": "d9eaba2b-5380-4d78-a1e0-f0fce925be8a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DropFragment",
+                    "type": "Button",
+                    "id": "31180223-d446-4828-b71e-49af18a6d8ea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ConfirmFragment",
+                    "type": "Button",
+                    "id": "cb4e6868-c7b8-4f5e-84b6-8f4195dce217",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1173,6 +1200,39 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "CloseUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52ab67d7-01ee-4b46-91f6-1650e12d0cd4",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragFragment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0121b1f-dac6-41d4-86c3-8b74ba7adf26",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DropFragment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15170cc3-7422-4536-844c-d1b21e3dac17",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConfirmFragment",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
