@@ -15,7 +15,12 @@ MonoBehaviour:
   songName: Cerberus Melody
   fragments:
   - {fileID: 11400000, guid: b5aa6d31ab795e4489371f4343f53f52, type: 2}
-  - {fileID: 11400000, guid: f25534f5d24272c4ea214c366f5e8f89, type: 2}
+  - {fileID: 11400000, guid: b5aa6d31ab795e4489371f4343f53f52, type: 2}
+  - {fileID: 11400000, guid: b5aa6d31ab795e4489371f4343f53f52, type: 2}
+  - {fileID: 11400000, guid: e6e95bf80e3641c4ca87966b1b573a20, type: 2}
+  paletteFragments:
   - {fileID: 11400000, guid: e6e95bf80e3641c4ca87966b1b573a20, type: 2}
   - {fileID: 11400000, guid: bb5401da20bd52246b1b6ed90f732e0c, type: 2}
+  - {fileID: 11400000, guid: b5aa6d31ab795e4489371f4343f53f52, type: 2}
+  - {fileID: 11400000, guid: f25534f5d24272c4ea214c366f5e8f89, type: 2}
   fullMelody: []

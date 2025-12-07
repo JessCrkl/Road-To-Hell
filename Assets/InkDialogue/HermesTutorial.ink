@@ -10,6 +10,6 @@ You can keep track of them in your song book.
 
 Stay low. Stay out of sight.
 
-You'll first have to get through who's guarding the gate... They'll go to sleep if they like your melody.
+You'll first have to get through who's guarding the gate... They'll go to sleep with the right lullaby.
 
 -> DONE

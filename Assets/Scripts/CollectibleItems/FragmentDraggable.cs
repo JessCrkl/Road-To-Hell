@@ -5,23 +5,34 @@ using UnityEngine.UI;
 public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SongFragment fragment;
+    public bool isPaletteSource = false;
     private CanvasGroup group;
     private Transform originalParent;
     private RectTransform rect;
     public Image icon;
+     private Canvas rootCanvas;
 
     void Awake()
     {
         group = GetComponent<CanvasGroup>();
         rect = GetComponent<RectTransform>();
-        icon = GetComponent<Image>();
+        if (icon == null) {
+            icon = GetComponent<Image>();}
+        rootCanvas = GetComponentInParent<Canvas>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalParent = transform.parent;
-        transform.SetParent(transform.root); 
+
+        if (rootCanvas != null)
+        {
+            transform.SetParent(rootCanvas.transform);
+            transform.SetAsLastSibling();      
+        } 
+
         group.blocksRaycasts = false;
+    
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -39,27 +50,40 @@ public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
             if (slot != null)
             {
-                if (slot.CorrectPlacement(fragment))
+                if (slot.IsEmpty)
                 {
-                    // correct
+                    // place if slot isn't already filled
                     slot.PlaceFragment(fragment);
+
+                    if (isPaletteSource && SongLearningUIManager.Instance != null && SongLearningUIManager.Instance.songLearningPanel.activeInHierarchy)
+                    {
+                        SongLearningUIManager.Instance.SpawnFragmentInPalette(fragment);
+                    }
                     Destroy(gameObject);
                     return;
                 }
                 else
                 {
-                    // TBD: wrong so shake animation 
-                    Debug.Log("Wrong answer! Puzzle reseting...");
+                    // slot filled
+                    Debug.Log("This slot is filled!");
                 }
             }
         }
 
         // reset position if not placed
         transform.SetParent(originalParent);
+        rect.localScale = Vector3.one;
     }
 
     public void BindData()
     {
+        if (icon == null)
+        {
+            Debug.LogError("FragmentDraggable has no Image assigned for icon.", this);
+            return;
+        }
+
         icon.sprite = fragment.sheetSprite;
+        icon.color = Color.white;
     }
 }

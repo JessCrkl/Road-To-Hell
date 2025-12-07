@@ -23,12 +23,18 @@ public class SongLearningUIManager : MonoBehaviour
     public int currentSongIndex;
     public FPSController fpsController;        
     public SongData song;
-    public AudioSource audioSource;
+    public AudioSource melodyHelper;
     public InputActionAsset inputActions;
     private InputAction dragFragmentAction;
     private InputAction dropFragmentAction;
 
     private List<StaffSlot> activeSlots = new();
+    [Header("Audio")]
+    public Button playHintButton;
+    public AudioClip hintAudio;
+    private bool isHintPlaying = false;
+    public AudioClip incorrectClip; 
+    public AudioClip correctClip; 
 
     private void Awake()
     {
@@ -37,6 +43,9 @@ public class SongLearningUIManager : MonoBehaviour
 
     private void Start()
     {
+        if (playHintButton != null) {
+        playHintButton.onClick.AddListener(PlayHint);
+        }
         if (helpButton != null)
         {
             helpButton.onClick.AddListener(OpenHelpPanel);
@@ -46,7 +55,7 @@ public class SongLearningUIManager : MonoBehaviour
             backButton.onClick.AddListener(CloseHelpPanel);
         }
 
-         OpenSongLearningUI(0); // for testing
+         OpenSongLearningUI(0); // FOR TESTING
     }
 
     private void OnEnable()
@@ -135,28 +144,48 @@ public class SongLearningUIManager : MonoBehaviour
         return;
     }
 
-    // 1. Create staff slots (sorted by correctIndex)
-    collected.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
+    // 1. Build slots from the *solution* order (song.fragments)
+    foreach (Transform child in staffSlotPanel) {
+        Destroy(child.gameObject);}
+    
+    activeSlots.Clear();
 
-    // Create the puzzle slots (staff positions) based on the fragments collected
-    for (int i = 0; i < collected.Count; i++)
+    if (song == null || song.fragments == null || song.fragments.Length == 0)
     {
+        Debug.LogWarning("[SongLearning] Song has no fragments/solution.");
+        return;
+    }
+
+    for (int i = 0; i < song.fragments.Length; i++)
+    {
+        SongFragment expected = song.fragments[i];
+
         StaffSlot slot = Instantiate(staffSlotPrefab, staffSlotPanel);
-        slot.slotIndex = collected[i].correctIndex;
+        slot.slotIndex = i;
+        slot.expectedFragment = expected;
         activeSlots.Add(slot);
     }
 
     // 2. Create draggable fragments at the bottom
     // This part will display the same fragment multiple times, as needed
-    foreach (SongFragment frag in collected)
+    foreach (Transform child in fragmentPanel) {
+        Destroy(child.gameObject); }
+
+    SongFragment[] palette = song.paletteFragments != null && song.paletteFragments.Length > 0? song.paletteFragments : song.fragments;
+
+    foreach (SongFragment frag in palette)
     {
-        // Create an instance of each fragment to be displayed at the bottom of the screen
-        FragmentDraggable drag = Instantiate(fragmentPrefab, fragmentPanel);
-        drag.fragment = frag;  // Reference the correct SongFragment data
-        drag.BindData();       // This will assign the correct sprite to the fragment
+        SpawnFragmentInPalette(frag);
     }
 }
+public void SpawnFragmentInPalette(SongFragment frag)
+    {
+        FragmentDraggable drag = Instantiate(fragmentPrefab, fragmentPanel);
+        drag.fragment = frag;
+        drag.BindData();
 
+        drag.isPaletteSource = true;
+    }
 
     void UnlockSong()
     {
@@ -172,12 +201,32 @@ public class SongLearningUIManager : MonoBehaviour
     {
         foreach (var note in song.fullMelody)
         {
-            audioSource.PlayOneShot(note);
+            melodyHelper.PlayOneShot(note);
             yield return new WaitForSeconds(note.length * 0.9f);
         }
     }
 
-    // Called by StaffSlot every time it places a fragment
+    private void PlayHint()
+    {
+        if (melodyHelper == null || hintAudio == null) return;
+
+        // no spamming the help button
+        if (isHintPlaying) return;
+
+        StartCoroutine(PlayHintCoroutine());
+    }
+
+    private IEnumerator PlayHintCoroutine()
+    {
+        isHintPlaying = true;
+
+        melodyHelper.PlayOneShot(hintAudio);
+
+        yield return new WaitForSeconds(hintAudio.length);
+
+        isHintPlaying = false;
+    }
+
     public void CheckCompletion()
     {
         foreach (StaffSlot slot in activeSlots)
@@ -190,20 +239,53 @@ public class SongLearningUIManager : MonoBehaviour
         bool isCorrect = true;
         for (int i = 0; i < activeSlots.Count; i++)
         {
-            if (activeSlots[i].placedFragment.correctIndex != activeSlots[i].slotIndex)
+            StaffSlot slot = activeSlots[i];
+            if (slot.placedFragment != slot.expectedFragment)
             {
+                // Debug.Log("Song Incorrect!");
                 isCorrect = false;
-                break;
+                StartCoroutine(HandleIncorrectSong());
+                return;
             }
 
         }
         
         if (isCorrect) {
-            Debug.Log("Song Completed! Unlocking song...");
+            StartCoroutine(HandleCorrectSong());
+        }
+    }
+
+    private IEnumerator HandleCorrectSong()
+    {
+        Debug.Log("Song Completed! Unlocking song...");
             
+            if (correctClip != null && melodyHelper != null)
+            {
+                melodyHelper.PlayOneShot(correctClip);
+            }
+            yield return new WaitForSeconds(0.4f);
+
             UnlockSong();
             SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
             CloseSongLearningUI();
-        }
     }
+
+    private IEnumerator HandleIncorrectSong()
+{
+    // optional: small delay before clearing, or do visual shake first
+
+    if (incorrectClip != null && melodyHelper != null)
+    {
+        melodyHelper.PlayOneShot(incorrectClip);
+    }
+
+    yield return new WaitForSeconds(0.4f);
+
+    foreach (var slot in activeSlots)
+    {
+        slot.ClearFragment();
+    }
+
+    Debug.Log("Song incorrect. Slots cleared.");
+}
 }

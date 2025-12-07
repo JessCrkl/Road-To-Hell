@@ -91,3 +91,5 @@ MonoBehaviour:
   slotIndex: 0
   slotImage: {fileID: 6498346435080837044}
   placedFragment: {fileID: 0}
+  expectedFragment: {fileID: 0}
+  emptySprite: {fileID: 21300000, guid: 12644524a1c53a04e8bbf116947d5862, type: 3}
