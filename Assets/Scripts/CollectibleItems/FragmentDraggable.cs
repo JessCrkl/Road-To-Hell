@@ -49,6 +49,7 @@ public class FragmentDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler,
                 else
                 {
                     // TBD: wrong so shake animation 
+                    Debug.Log("Wrong answer! Puzzle reseting...");
                 }
             }
         }

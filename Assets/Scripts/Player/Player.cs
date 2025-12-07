@@ -32,8 +32,17 @@ public class Player : MonoBehaviour
             }
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-        } else {
-            //re-enable player movement if dialogue finished
+        } else if(FPSController != null && FPSController.SongLearningActive)
+        {
+            // disable player movement during song learning
+            if (playerInput.currentActionMap.name != "SongLearning")
+            playerInput.SwitchCurrentActionMap("SongLearning");
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else {
+            //re-enable player movement if dialogue finished and not learning song
             if (playerInput.currentActionMap.name != "Player")
             {
                 playerInput.SwitchCurrentActionMap("Player");

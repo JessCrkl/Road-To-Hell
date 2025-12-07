@@ -48,6 +48,15 @@ public class PlayerStats : MonoBehaviour
         if(lostVersesCount == 4)
         {
             // show songbook prompt
+            Debug.Log($"Opening Learning UI...");
+            if (SongLearningUIManager.Instance != null)
+            {
+                SongLearningUIManager.Instance.OpenSongLearningUI(0); 
+            }
+            else
+            {
+                Debug.LogWarning("SongLearningUIManager.Instance is null!");
+            }
         }
     }
     public void AddBread(int amount)

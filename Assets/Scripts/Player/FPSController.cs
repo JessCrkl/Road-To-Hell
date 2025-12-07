@@ -47,7 +47,7 @@ public class FPSController : MonoBehaviour
 
     [Header("Camera Parameters")]
     [SerializeField] float cameraNormalFOV = 60f;
-    [SerializeField] float cameraSprintFOV = 80f;
+    [SerializeField] float cameraSprintFOV = 100f;
     [SerializeField] float cameraFOVSmoothing = 0.5f;
 
     float targetCameraFOV

@@ -9,11 +9,11 @@ public class SongLearningUIManager : MonoBehaviour
     public static SongLearningUIManager Instance;
 
     [Header("UI References")]
-    public GameObject songLearningPanel;        // Whole UI panel
-    public Transform fragmentPanel;             // Where draggable fragments appear
-    public Transform staffSlotPanel;            // Slots on the staff where pieces go
-    public StaffSlot staffSlotPrefab;           // Prefab for each slot on staff
-    public FragmentDraggable fragmentPrefab;    // Prefab for draggable fragments
+    public GameObject songLearningPanel;        
+    public Transform fragmentPanel;             
+    public Transform staffSlotPanel;            
+    public StaffSlot staffSlotPrefab;           
+    public FragmentDraggable fragmentPrefab;    
     public GameObject helpPanel;
     public Button helpButton;
     public Button backButton;
@@ -21,7 +21,7 @@ public class SongLearningUIManager : MonoBehaviour
 
     [Header("Gameplay")]
     public int currentSongIndex;
-    public GameObject playerController;        // FPS Controller GameObject
+    public FPSController fpsController;        
     public SongData song;
     public AudioSource audioSource;
     public InputActionAsset inputActions;
@@ -45,11 +45,13 @@ public class SongLearningUIManager : MonoBehaviour
         {
             backButton.onClick.AddListener(CloseHelpPanel);
         }
+
+         OpenSongLearningUI(0); // for testing
     }
 
     private void OnEnable()
     {
-        // Enable the action map
+        // songlearning the action map
         var songLearningMap = inputActions.FindActionMap("SongLearning");
 
         dragFragmentAction = songLearningMap.FindAction("DragFragment");
@@ -67,15 +69,18 @@ public class SongLearningUIManager : MonoBehaviour
 
     public void OpenSongLearningUI(int songIndex)
     {
+        Debug.Log($"Opening Song Learning UI for songIndex {songIndex}");
         currentSongIndex = songIndex;
 
-        // Disable player movement
-        if (playerController != null)
-            playerController.SetActive(false);
+        // stop player movement
+        if (fpsController != null)
+        fpsController.SongLearningActive = true;
 
-        // Show UI
         songLearningPanel.SetActive(true);
         helpPanel.SetActive(false);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         BuildPuzzle();
     }
@@ -92,15 +97,17 @@ public class SongLearningUIManager : MonoBehaviour
 
     public void CloseSongLearningUI()
     {
-        // Hide UI
         songLearningPanel.SetActive(false);
         helpPanel.SetActive(false);
 
-        // Re-enable player movement
-        if (playerController != null)
-            playerController.SetActive(true);
+        // start player movement again
+        if (fpsController != null)
+        fpsController.SongLearningActive = false;
 
-        // Cleanup old puzzle
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        // cleanup puzzle
         foreach (var slot in activeSlots)
             Destroy(slot.gameObject);
         activeSlots.Clear();
@@ -111,8 +118,22 @@ public class SongLearningUIManager : MonoBehaviour
 
     private void BuildPuzzle()
 {
+    Debug.Log($"[SongLearning] BuildPuzzle for songIndex={currentSongIndex}");
+
     // Get the collected fragments for the current song
     List<SongFragment> collected = SongFragmentManager.Instance.GetFragmentsForSong(currentSongIndex);
+
+    if (collected.Count == 0 && song != null && song.fragments != null)
+    {
+        collected = new List<SongFragment>(song.fragments);
+        Debug.Log($"[SongLearning] Test mode: using {collected.Count} fragments from SongData.");
+    }
+
+    if (collected.Count == 0)
+    {
+        Debug.LogWarning("[SongLearning] No fragments found for this song.");
+        return;
+    }
 
     // 1. Create staff slots (sorted by correctIndex)
     collected.Sort((a, b) => a.correctIndex.CompareTo(b.correctIndex));
@@ -169,16 +190,16 @@ public class SongLearningUIManager : MonoBehaviour
         bool isCorrect = true;
         for (int i = 0; i < activeSlots.Count; i++)
         {
-            if (activeSlots[i].placedFragment.correctIndex != i)
+            if (activeSlots[i].placedFragment.correctIndex != activeSlots[i].slotIndex)
             {
-                // not in correct order, return
                 isCorrect = false;
-                return;
+                break;
             }
+
         }
         
         if (isCorrect) {
-            Debug.Log("SONG COMPLETED!");
+            Debug.Log("Song Completed! Unlocking song...");
             
             UnlockSong();
             SongFragmentManager.Instance.MarkSongLearned(currentSongIndex);
