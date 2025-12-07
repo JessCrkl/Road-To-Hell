@@ -55,7 +55,7 @@ public class SongLearningUIManager : MonoBehaviour
             backButton.onClick.AddListener(CloseHelpPanel);
         }
 
-         OpenSongLearningUI(0); // FOR TESTING
+        OpenSongLearningUI(0); // FOR TESTING
     }
 
     private void OnEnable()
@@ -129,7 +129,7 @@ public class SongLearningUIManager : MonoBehaviour
 {
     Debug.Log($"[SongLearning] BuildPuzzle for songIndex={currentSongIndex}");
 
-    // Get the collected fragments for the current song
+    // get the collected fragments for the current song
     List<SongFragment> collected = SongFragmentManager.Instance.GetFragmentsForSong(currentSongIndex);
 
     if (collected.Count == 0 && song != null && song.fragments != null)
@@ -144,7 +144,7 @@ public class SongLearningUIManager : MonoBehaviour
         return;
     }
 
-    // 1. Build slots from the *solution* order (song.fragments)
+    // build slots from the solution
     foreach (Transform child in staffSlotPanel) {
         Destroy(child.gameObject);}
     
@@ -166,8 +166,7 @@ public class SongLearningUIManager : MonoBehaviour
         activeSlots.Add(slot);
     }
 
-    // 2. Create draggable fragments at the bottom
-    // This part will display the same fragment multiple times, as needed
+    // create draggable fragments at the bottom
     foreach (Transform child in fragmentPanel) {
         Destroy(child.gameObject); }
 
@@ -189,10 +188,10 @@ public void SpawnFragmentInPalette(SongFragment frag)
 
     void UnlockSong()
     {
-        // Play full melody
+        // play full melody
         StartCoroutine(PlayMelody());
 
-        // Mark in save file that song is learned
+        // mark in save file that song is learned
         PlayerStats.Instance.UnlockedSongs.Add(song.songName);
         Debug.Log("Learned Song: " + song.songName);
     }
@@ -272,7 +271,6 @@ public void SpawnFragmentInPalette(SongFragment frag)
 
     private IEnumerator HandleIncorrectSong()
 {
-    // optional: small delay before clearing, or do visual shake first
 
     if (incorrectClip != null && melodyHelper != null)
     {

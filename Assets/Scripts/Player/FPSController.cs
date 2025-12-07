@@ -9,18 +9,25 @@ public class FPSController : MonoBehaviour
     #region Variable Definitions
     [Header("Movement Parameters")]
     [SerializeField] float maxSpeed => sprintInput ? sprintSpeed : walkSpeed;
-    [SerializeField] float acceleration = 80f;
-    [SerializeField] float deceleration = 100f;
+    [SerializeField] float acceleration = 20f;
+    [SerializeField] float deceleration = 16f;
     [Tooltip("This is how fast the character can walk.")]
-    [SerializeField] float walkSpeed = 4.5f;
+    [SerializeField] float walkSpeed = 3f;
     [Tooltip("This is how fast the character can run.")]
-    [SerializeField] float sprintSpeed = 15f;
+    [SerializeField] float sprintSpeed = 4.5f;
+    // [Tooltip("This is how fast the character can crouch.")]
+    // [SerializeField] float crouchSpeed = 2f;
 
     [Space(15)]
     [Tooltip("This is how high the character can jump.")]
     [SerializeField] float jumpHeight = 2f;
     private int timesJumped = 0;
     [SerializeField] bool canDoubleJump = true;
+
+    // [Space(15)]
+    // [Tooltip("This is how high the character can crouch.")]
+    // [SerializeField] float crouchHeight = 1.0f;     
+    // [SerializeField] float crouchTransitionSpeed = 8f;
 
     public bool sprinting
     {
@@ -47,7 +54,7 @@ public class FPSController : MonoBehaviour
 
     [Header("Camera Parameters")]
     [SerializeField] float cameraNormalFOV = 60f;
-    [SerializeField] float cameraSprintFOV = 100f;
+    [SerializeField] float cameraSprintFOV = 75f;
     [SerializeField] float cameraFOVSmoothing = 0.5f;
 
     float targetCameraFOV
@@ -92,7 +99,7 @@ public class FPSController : MonoBehaviour
     void Update()
     {
         //Debug.Log($"dialogueManager: {dialogueManager != null}, DialogueActive: {(dialogueManager != null && dialogueManager.DialogueActive)}, moveInput: {moveInput}");
-        // // don't move if dialogue is active
+        // // don't move if dialogue or song learning is active
         if (dialogueManager != null && dialogueManager.DialogueActive)
         {
             return;
@@ -171,7 +178,7 @@ public class FPSController : MonoBehaviour
         // account for gravity
         if (isGrounded && verticalVelocity <= 0.01f)
         {
-            currentVelocity *= 0.95f;
+            verticalVelocity = -0.1f;
         } else
         {
             verticalVelocity += Physics.gravity.y * gravityScale * Time.deltaTime;
@@ -191,6 +198,7 @@ public class FPSController : MonoBehaviour
 
         //update speed
         currentSpeed = currentVelocity.magnitude;
+        
     }
 
     // Update Camera orientation (what fps is looking at)

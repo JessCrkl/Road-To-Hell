@@ -6284,16 +6284,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSController
   acceleration: 10
-  deceleration: 40
+  deceleration: 16
   walkSpeed: 2
-  sprintSpeed: 15
+  sprintSpeed: 4.5
   jumpHeight: 2
   canDoubleJump: 1
   lookSensitivity: {x: 0.1, y: 0.1}
   pitchLimit: 85
   currentPitch: 0
   cameraNormalFOV: 60
-  cameraSprintFOV: 80
+  cameraSprintFOV: 75
   cameraFOVSmoothing: 1
   gravityScale: 3
   verticalVelocity: 0
@@ -9511,7 +9511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &956013633
 RectTransform:
   m_ObjectHideFlags: 0
