@@ -15,10 +15,11 @@ Helpful Resource for Thinking Through Puzzle Logic in Song Learning Mechanics: h
 
 ---------- Asset Credits ----------------
 
-Unity:
+Unity Asset Store:
 
 "Ink Integration for Unity" by INKLE, uploaded July 14, 2023, https://assetstore.unity.com/packages/tools/integration/ink-integration-for-unity-60055
 
+"FREE Fantasy Terrain Textures" by 3D Haven, uploaded Sept. 25, 2022, https://assetstore.unity.com/packages/2d/textures-materials/free-fantasy-terrain-textures-233640
 
 Sound: 
 
