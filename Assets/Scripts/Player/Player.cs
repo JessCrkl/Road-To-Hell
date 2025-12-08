@@ -9,8 +9,14 @@ public class Player : MonoBehaviour
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] DialogueEventHandler dialogueEventHandler;
     [SerializeField] PlayerInput playerInput;
+    [SerializeField] PlayerStats playerHealth;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("Song Combat")]
+    public bool isSongAttacking = false;
+    public string cerberusSongName = "Cerberus Melody";
+    public float songAttackRange = 5f;
+
     void Start()
     {   
         playerInput.enabled = true;
@@ -50,6 +56,11 @@ public class Player : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        if (isSongAttacking)
+        {
+            ApplySongDamageToCerberus();
+        }
     }
 
     #region Input Handling
@@ -78,7 +89,7 @@ public class Player : MonoBehaviour
 
     void OnInteract(InputValue value)
     {
-        // TODO - pick up lost verses/gas canisters 
+
         if (!value.isPressed) return;
 
         Ray ray = new(Camera.main.transform.position, Camera.main.transform.forward);
@@ -90,6 +101,11 @@ public class Player : MonoBehaviour
                 cerberus.TryToAppease();
             }
         }
+    }
+
+    void OnSongAttack(InputValue value)
+    {
+        isSongAttacking = value.isPressed;
     }
 
     void OnPersuade(InputValue value)
@@ -133,6 +149,25 @@ public class Player : MonoBehaviour
         if(dialogueEventHandler != null && !dialogueManager.DialogueActive)
         {
             dialogueEventHandler.TryStartDialogue();
+        }
+    }
+
+        private void ApplySongDamageToCerberus()
+    {
+        // player must know the song
+        if (!PlayerStats.Instance.HasLearnedSong(cerberusSongName))
+            return;
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, songAttackRange);
+        foreach (var hit in hits)
+        {
+            Cerberus cerb = hit.GetComponent<Cerberus>();
+            if (cerb != null)
+            {
+                float damageAmount = cerb.songDamagePerSecond * Time.deltaTime;
+                cerb.TakeSongDamage(damageAmount);
+                return; 
+            }
         }
     }
 

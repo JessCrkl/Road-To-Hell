@@ -36,12 +36,6 @@ She's tightly holding onto a small pack. It holds the only belongings you both o
 
 Her face is starting to cave in. There's not enough food to go around.
 
-She's beautiful. You love her dearly.
---> Love
-
-=== Love ===
-* [She loves you back.]
-
 --> Choices
 
 === Choices ===
@@ -55,5 +49,5 @@ She's beautiful. You love her dearly.
 --> Ending
 
 === Ending ===
-You want to get her back.
+She dies. You need to get her back.
 -> END

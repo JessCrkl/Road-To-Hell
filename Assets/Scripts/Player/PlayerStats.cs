@@ -7,6 +7,8 @@ public class PlayerStats : MonoBehaviour
     
     [Header("Player Statistics")]
     public int experience = 0;
+    public int maxHealth = 100;
+    public int currentHealth;
     public int keyCount = 0;
     public int lostVersesCount = 0;
     public int breadCount = 0;
@@ -22,6 +24,15 @@ public class PlayerStats : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+        if (CombatUIManager.Instance != null)
+        {
+            CombatUIManager.Instance.InitPlayerHealth(maxHealth);
+        }
     }
 
     #region Collect Add Methods
@@ -89,5 +100,21 @@ public class PlayerStats : MonoBehaviour
     {
         return UnlockedSongs.Contains(songName);
     }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth < 0) currentHealth = 0;
+
+        if (CombatUIManager.Instance != null)
+            CombatUIManager.Instance.UpdatePlayerHealth(currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Player died.");
+            // TODO: respawn at trigger
+        }
+    }
+
     #endregion
 }
