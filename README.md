@@ -24,19 +24,21 @@ Sound:
 
 "Ambiance_Atmosphere_Cave_Loop_Stereo.ogg" by Nox_Sound, uploaded Jan. 3, 2021, https://freesound.org/people/Nox_Sound/sounds/553080/
 
-"Gentle, Subtle guitar background noise for Game/film/TV etc" by Destructo20 uploaded on Dec. 27, 2024, https://freesound.org/people/Destructo20/sounds/780545/
+"Correct" by avreference, uploaded June 4, 2024, https://freesound.org/people/avreference/sounds/738853/
 
 "Dat's Wrong!" by Beetlemuse, uploaded Sept. 6, 2021, https://freesound.org/people/Beetlemuse/sounds/587253/
 
-"Correct" by avreference, uploaded June 4, 2024, https://freesound.org/people/avreference/sounds/738853/
+"Gentle, Subtle guitar background noise for Game/film/TV etc" by Destructo20 uploaded on Dec. 27, 2024, https://freesound.org/people/Destructo20/sounds/780545/
 
 "Glockenspiel Twinkle Little Star" by composingatnight, July 6, 2023, https://freesound.org/people/composingatnight/sounds/693764/
 
 
 Models:
 
-"Mine" by Gregory Seguru, uploaded June 26, 2017, https://assetstore.unity.com/packages/3d/environments/dungeons/mine-92461
+"Cerberus: Aniamted 3D Character" by Arkerion Studios, uploaded Jan. 27, 2022, https://assetstore.unity.com/packages/3d/characters/creatures/cerberus-animated-3d-character-141199
+
+"Gate" (https://skfb.ly/6YqBr) by arloopa is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/), https://skfb.ly/6YqBr
 
 "Grimoire Style Book" by Robotic Rainbow Studios, uploaded April 4, 2018, https://assetstore.unity.com/packages/3d/props/grimoire-style-book-3996
 
-"Cerberus: Aniamted 3D Character" by Arkerion Studios, uploaded Jan. 27, 2022, https://assetstore.unity.com/packages/3d/characters/creatures/cerberus-animated-3d-character-141199
+"Mine" by Gregory Seguru, uploaded June 26, 2017, https://assetstore.unity.com/packages/3d/environments/dungeons/mine-92461
