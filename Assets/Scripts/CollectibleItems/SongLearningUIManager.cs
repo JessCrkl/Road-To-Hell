@@ -55,7 +55,7 @@ public class SongLearningUIManager : MonoBehaviour
             backButton.onClick.AddListener(CloseHelpPanel);
         }
 
-        OpenSongLearningUI(0); // FOR TESTING
+        // OpenSongLearningUI(0); // FOR TESTING
     }
 
     private void OnEnable()

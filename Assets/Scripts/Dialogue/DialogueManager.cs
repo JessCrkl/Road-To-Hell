@@ -155,25 +155,6 @@ public class DialogueManager : MonoBehaviour
         ClearChoices();
         ContinueStory();
 
-        // debug
-        // if (story.canContinue)
-        // {
-        //     string nextLine = story.Continue().Trim();
-        //     dialogueText.text = nextLine;
-
-        //     if (story.currentChoices.Count > 0)
-        //     {
-        //         DisplayChoices();
-        //     }
-        // }
-        // else if (story.currentChoices.Count > 0)
-        // {
-        //     DisplayChoices();
-        // }
-        // else
-        // {
-        //     EndDialogue();
-        // }
     }
 
     void ClearChoices()
