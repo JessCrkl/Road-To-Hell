@@ -11,6 +11,11 @@ public class CerberusAreaTrigger : MonoBehaviour
             CombatUIManager.Instance.SetInCombatArea(true);
             CombatUIManager.Instance.ShowCombatUI(true);
         }
+
+        if (PlayerStats.Instance != null && PlayerStats.Instance.HasLearnedSong("Cerberus Melody"))
+        {
+            CombatUIManager.Instance.ShowCerberusHint(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -21,6 +26,7 @@ public class CerberusAreaTrigger : MonoBehaviour
         {
             CombatUIManager.Instance.SetInCombatArea(false);
             CombatUIManager.Instance.ShowCombatUI(false);
+            CombatUIManager.Instance.ShowCerberusHint(false);
         }
     }
 }

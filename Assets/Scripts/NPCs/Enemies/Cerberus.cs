@@ -215,6 +215,7 @@ public class Cerberus : Enemy
     {
         Debug.Log("Hiding combat UI from Cerberus death");
         CombatUIManager.Instance.ShowCombatUI(false);
+        CombatUIManager.Instance.ShowCerberusHint(false);
         CombatUIManager.Instance.SetInCombatArea(false);
     }
 

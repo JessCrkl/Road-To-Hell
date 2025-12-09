@@ -9,6 +9,9 @@ public class CombatUIManager : MonoBehaviour
     [Header("Panel")]
     public GameObject combatPanel;
 
+    [Header("Hint Panel")]
+    public GameObject cerberusHintPanel;
+
     [Header("Sliders")]
     public Slider playerHealthSlider;
     public Slider cerberusSleepSlider;
@@ -20,6 +23,9 @@ public class CombatUIManager : MonoBehaviour
 
         if (combatPanel != null)
             combatPanel.SetActive(false);
+
+        if (cerberusHintPanel != null)
+        cerberusHintPanel.SetActive(false);
     }
     
 
@@ -34,6 +40,12 @@ public class CombatUIManager : MonoBehaviour
     public void SetInCombatArea(bool inArea)
     {
         InCombatArea = inArea;
+    }
+
+    public void ShowCerberusHint(bool show)
+    {
+        if (cerberusHintPanel != null)
+            cerberusHintPanel.SetActive(show);
     }
 
     public void InitPlayerHealth(int maxHP)
