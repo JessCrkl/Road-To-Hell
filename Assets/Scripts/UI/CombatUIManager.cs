@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class CombatUIManager : MonoBehaviour
 {
     public static CombatUIManager Instance { get; private set; }
+    public bool InCombatArea { get; private set; }
 
     [Header("Panel")]
     public GameObject combatPanel;
@@ -26,6 +27,13 @@ public class CombatUIManager : MonoBehaviour
     {
         if (combatPanel != null)
             combatPanel.SetActive(show);
+
+        Debug.Log($"[CombatUIManager] SetActive({show}) on {combatPanel.name}");
+    }
+
+    public void SetInCombatArea(bool inArea)
+    {
+        InCombatArea = inArea;
     }
 
     public void InitPlayerHealth(int maxHP)

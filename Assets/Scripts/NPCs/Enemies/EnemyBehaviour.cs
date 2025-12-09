@@ -19,6 +19,7 @@ public class EnemyBehaviour : Enemy
     private Transform player;
     private bool playerDetected = false;
     private Animator animator;
+    private Cerberus cerberus;
     private Vector3 lastPosition;
     private float nextAttackTime = 0f;
     public int attackDamage = 10;
@@ -28,24 +29,28 @@ public class EnemyBehaviour : Enemy
         base.Start();
         player = GameObject.FindWithTag("Player").transform;
         animator = GetComponent<Animator>();
+        cerberus = GetComponent<Cerberus>();
         lastPosition = transform.position;
     }
 
         protected override void UpdateBehavior()
     {
+        if (isDead) return; 
         if (player == null) return;
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        Vector3 flat = player.position - transform.position;
+        flat.y = 0f;
+        float distance = flat.magnitude;
 
         if (distance <= attackRange)
         {
             playerDetected = true;
-            AttackPlayer();    
+            AttackState();    
         }
         else if (distance <= chaseRadius)
         {
             playerDetected = true;
-            ChasePlayer();     
+            ChaseState();     
         }
         else
         {
@@ -102,36 +107,27 @@ public class EnemyBehaviour : Enemy
         }
     }
 
-        private void ChasePlayer()
+    private void ChaseState()
     {
-        Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0f;
+        Vector3 dir = player.position - transform.position;
+        dir.y = 0f;
 
-        transform.position += direction * chaseSpeed * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(direction);
+        if (dir.sqrMagnitude < 0.0001f) return;
+
+        dir.Normalize();
+        transform.position += dir * chaseSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(dir);
     }
 
-    private void AttackPlayer()
+    private void AttackState()
     {
         Vector3 toPlayer = player.position - transform.position;
         toPlayer.y = 0f;
-        if (toPlayer.sqrMagnitude > 0.01f)
-        {
+        if (toPlayer.sqrMagnitude > 0.001f)
             transform.rotation = Quaternion.LookRotation(toPlayer);
-        }
 
-        if (Time.time >= nextAttackTime)
-        {
-            if (animator != null)
-            {
-                animator.SetTrigger("Attack");   
-            }
-
-            PlayerStats playerHealth = player.GetComponent<PlayerStats>();
-        if (playerHealth != null)
-            playerHealth.TakeDamage(attackDamage);
-                nextAttackTime = Time.time + attackCooldown;
-            }
+        if (cerberus != null)
+            cerberus.AttackPlayer();
     }
 
     private void UpdateAnimation()

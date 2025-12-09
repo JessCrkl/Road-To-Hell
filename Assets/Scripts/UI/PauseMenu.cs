@@ -27,6 +27,7 @@ public class PauseMenu : MonoBehaviour
         bool isActive = !optionsPanelInstance.activeSelf;
         optionsPanelInstance.SetActive(isActive);
 
+
         Time.timeScale = isActive ? 0f : 1f;
 
         Cursor.visible = isActive;
@@ -36,6 +37,20 @@ public class PauseMenu : MonoBehaviour
         if (player != null)
         {
             player.enabled = !isActive;
+        }
+
+        if (CombatUIManager.Instance != null)
+        {
+            if (isActive)
+            {
+                
+                CombatUIManager.Instance.ShowCombatUI(false);
+            }
+            else
+            {
+                if (CombatUIManager.Instance.InCombatArea)
+                    CombatUIManager.Instance.ShowCombatUI(true);
+            }
         }
             
     }

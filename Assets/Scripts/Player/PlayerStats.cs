@@ -35,7 +35,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         // COMMENT THIS:
-        UnlockedSongs.Add("CerberusSong"); // FOR TESTING
+        UnlockedSongs.Add("Cerberus Melody"); // FOR TESTING
     }
 
     #region Collect Add Methods

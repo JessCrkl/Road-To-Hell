@@ -23,6 +23,8 @@ public abstract class Enemy : MonoBehaviour
     public LostVerse rewardLostVerse;
     public Key rewardKey;
 
+    protected bool isDead = false;
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -30,6 +32,8 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
+        if(isDead) return;
+
         currentHealth -= damage;
         if (currentHealth <= 0)
             Die();
@@ -37,6 +41,9 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.AddXP(rewardXP);
@@ -53,6 +60,7 @@ public abstract class Enemy : MonoBehaviour
     
     void Update()
     {
+        if (isDead) return;
         UpdateBehavior();
     }
 }
