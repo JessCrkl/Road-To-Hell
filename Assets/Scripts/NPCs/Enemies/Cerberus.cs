@@ -221,7 +221,7 @@ public class Cerberus : Enemy
     if (PlayerStats.Instance != null)
     {
         PlayerStats.Instance.AddXP(rewardXP);
-        PlayerStats.Instance.AddLostVerse(rewardLostVerse, lostVersesRewardCount);
+        // PlayerStats.Instance.AddLostVerse(rewardLostVerse, lostVersesRewardCount);
         PlayerStats.Instance.AddKey(rewardKey, keyRewardCount);
     }
     if (rewardKey != null)
