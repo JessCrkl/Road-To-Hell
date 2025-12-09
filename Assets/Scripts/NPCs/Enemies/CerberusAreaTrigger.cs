@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class CerberusAreaTrigger : MonoBehaviour
 {
+    public GameObject combatUIPanel;
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-
-        if (CombatUIManager.Instance != null)
-            CombatUIManager.Instance.ShowCombatUI(true);
+        if (other.CompareTag("Player") && combatUIPanel != null)
+        {
+            combatUIPanel.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-
-        if (CombatUIManager.Instance != null)
-            CombatUIManager.Instance.ShowCombatUI(false);
+        if (other.CompareTag("Player") && combatUIPanel != null)
+        {
+            combatUIPanel.SetActive(false);
+        }
     }
 }

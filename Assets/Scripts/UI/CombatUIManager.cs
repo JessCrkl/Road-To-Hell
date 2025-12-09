@@ -20,6 +20,7 @@ public class CombatUIManager : MonoBehaviour
         if (combatPanel != null)
             combatPanel.SetActive(false);
     }
+    
 
     public void ShowCombatUI(bool show)
     {

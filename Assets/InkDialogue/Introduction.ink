@@ -1,36 +1,25 @@
 In a small mining town near a railroad line...
 
-Times are hard. The seasons are changing. Winters and summers are becoming too extreme. 
---> Winds
+The seasons are changing. Winters and summers are becoming too extreme.
 
-=== Winds ===
-* [The winds are getting worse.]
-
-Apollo, the God of music and poetry, has gifted you a golden lyre. 
-
---> Apollo
-
-=== Apollo ===
-* [You play beatifully.]
-
-He teaches you to write music. You have a talent for it. You, Orpheus, are the son of a Muse.
---> Abandon
-
-== Abandon ===
-* [She abandoned you.]
---> Hermes
+The God of music and poetry teaches you to write music.
+* [You have a talent for it.]
+    Your father teaches you the importance of your songs.
+    --> Hermes
+* [You suck at it.]
+    Regardless, your father teaches you the importance of your songs.
+    --> Hermes
 
 === Hermes ===
-Hermes, the God of travelers and messengers, took you in. He teaches you the importance of your songs.
 
-"You can bring the seasons back into tune," he believes.
+"You can bring the seasons back into tune," he said.
 
-There's a melody in your head. A lost melody that could fix things.
+But there's a melody you can't quite recall...
 
 --> Eurydice
 
 === Eurydice ===
-* [You see Eurydice.]
+* [You see her.]
 
 She's tightly holding onto a small pack. It holds the only belongings you both own. 
 
@@ -42,12 +31,12 @@ Her face is starting to cave in. There's not enough food to go around.
 
 "We need to find food and firewood." She says. You continue working on the lost melody. If you can fix the seasons, this harsh winter can end.
 
-"Did you hear me Orpheus?" 
+"Did you hear me?"
 
 * [You have to finish the song.]
 
 --> Ending
 
 === Ending ===
-She dies. You need to get her back.
+She gone. You have to get her back.
 -> END

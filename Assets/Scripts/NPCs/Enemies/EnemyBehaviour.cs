@@ -9,11 +9,19 @@ public class EnemyBehaviour : Enemy
     public float attackSpeed = 4f;
     public float detectionRadius = 5f;
 
+    [Header("Combat Settings")]
+    public float chaseRadius = 8f;      
+    public float attackRange = 2f;      
+    public float chaseSpeed = 3.5f;
+    public float attackCooldown = 1.5f;
+
     [Header("Player Interaction")]
     private Transform player;
     private bool playerDetected = false;
     private Animator animator;
     private Vector3 lastPosition;
+    private float nextAttackTime = 0f;
+    public int attackDamage = 10;
 
     protected override void Start()
     {
@@ -23,18 +31,31 @@ public class EnemyBehaviour : Enemy
         lastPosition = transform.position;
     }
 
-    protected override void UpdateBehavior()
+        protected override void UpdateBehavior()
     {
-        if (playerDetected && player != null)
+        if (player == null) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance <= attackRange)
         {
-            AttackPlayer();
+            playerDetected = true;
+            AttackPlayer();    
+        }
+        else if (distance <= chaseRadius)
+        {
+            playerDetected = true;
+            ChasePlayer();     
         }
         else
         {
+            playerDetected = false;
             Patrol();
         }
+
         UpdateAnimation();
     }
+
 
     private void LateUpdate()
     {
@@ -81,19 +102,36 @@ public class EnemyBehaviour : Enemy
         }
     }
 
+        private void ChasePlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        direction.y = 0f;
+
+        transform.position += direction * chaseSpeed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
     private void AttackPlayer()
     {
         Vector3 toPlayer = player.position - transform.position;
         toPlayer.y = 0f;
-
-        Vector3 direction = toPlayer.normalized;
-
-        transform.position += direction * attackSpeed * Time.deltaTime;
-        if (direction.sqrMagnitude > 0.0001f)
+        if (toPlayer.sqrMagnitude > 0.01f)
         {
-            Vector3 lookPos = transform.position + direction;
-            transform.LookAt(lookPos);
+            transform.rotation = Quaternion.LookRotation(toPlayer);
         }
+
+        if (Time.time >= nextAttackTime)
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("Attack");   
+            }
+
+            PlayerStats playerHealth = player.GetComponent<PlayerStats>();
+        if (playerHealth != null)
+            playerHealth.TakeDamage(attackDamage);
+                nextAttackTime = Time.time + attackCooldown;
+            }
     }
 
     private void UpdateAnimation()

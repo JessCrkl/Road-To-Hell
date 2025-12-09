@@ -33,6 +33,9 @@ public class PlayerStats : MonoBehaviour
         {
             CombatUIManager.Instance.InitPlayerHealth(maxHealth);
         }
+
+        // COMMENT THIS:
+        UnlockedSongs.Add("CerberusSong"); // FOR TESTING
     }
 
     #region Collect Add Methods

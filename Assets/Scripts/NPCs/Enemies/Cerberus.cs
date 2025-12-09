@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(EnemyBehaviour))]
 public class Cerberus : Enemy
@@ -11,6 +12,8 @@ public class Cerberus : Enemy
     public string requiredSongName = "Cerberus Melody"; 
     public float songRange = 5f;
     public float songDamagePerSecond = 10f;
+    public int currentSleep;
+    public Slider sleepBar;   
 
     [Header("Attack Fields")]
     private EnemyBehaviour behaviour;

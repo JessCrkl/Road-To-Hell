@@ -10,6 +10,7 @@ public class GateController : MonoBehaviour
 
     [Header("Gate / UI")]
     public GameObject gateVisual;
+    public GameObject endCredits;
     public Animator gateAnimator;  
     public CanvasGroup endScreenCanvas;
     public float fadeDuration = 2f;
@@ -39,9 +40,7 @@ public class GateController : MonoBehaviour
         if (!requiresCerberusKey)
             return true;
 
-        // Simplest: any key
         return PlayerStats.Instance.keyCount > 0;
-        // If you track specific keys by name, check that here instead.
     }
 
     private IEnumerator OpenGateAndEnd()
@@ -53,13 +52,8 @@ public class GateController : MonoBehaviour
         {
             gateAnimator.SetTrigger("Open");
         }
-        else if (gateVisual != null)
-        {
-            gateVisual.SetActive(false);
-        }
 
-        // Small delay before fade
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
 
         if (endScreenCanvas != null)
         {
@@ -74,7 +68,7 @@ public class GateController : MonoBehaviour
                 yield return null;
             }
 
-            // Here you can play your "title" + "about/credits" animation/text
+            endCredits.SetActive(true);
             yield return new WaitForSeconds(3f);
         }
 
