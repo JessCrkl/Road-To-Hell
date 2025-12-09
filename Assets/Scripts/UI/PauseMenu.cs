@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject optionsPanelPrefab;
 
     private GameObject optionsPanelInstance;
+    public static bool IsPaused { get; private set; }
 
     void Update()
     {
@@ -26,7 +27,7 @@ public class PauseMenu : MonoBehaviour
 
         bool isActive = !optionsPanelInstance.activeSelf;
         optionsPanelInstance.SetActive(isActive);
-
+        IsPaused = isActive;
 
         Time.timeScale = isActive ? 0f : 1f;
 
@@ -53,6 +54,32 @@ public class PauseMenu : MonoBehaviour
             }
         }
             
+    }
+
+    public void ForceClose()
+    {
+        IsPaused = false;
+        Time.timeScale = 1f;
+
+        if (optionsPanelInstance != null)
+        {
+            Destroy(optionsPanelInstance);
+            optionsPanelInstance = null;
+        }
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        var player = FindFirstObjectByType<Player>();
+        if (player != null)
+        {
+            player.enabled = true;
+        }
+    }
+
+    private void OnDisable()
+    {
+        Time.timeScale = 1f;
     }
 }
 

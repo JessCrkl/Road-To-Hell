@@ -21,6 +21,12 @@ public class MainMenu : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f; 
+
+        var pauseMenu = FindFirstObjectByType<PauseMenu>();
+        if (pauseMenu != null)
+        {
+            pauseMenu.ForceClose();
+        }
         SceneManager.LoadScene("Menu");
     }
 
